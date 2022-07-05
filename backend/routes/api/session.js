@@ -10,10 +10,10 @@ const validateLogin = [
     check('credential')
         .exists({checkFalsy: true})
         .notEmpty()
-        .withMessage('Please provide a valid email or username.'),
+        .withMessage('Email is required'),
     check('password')
         .exists({checkFalsy: true})
-        .withMessage('Please provide a password.'),
+        .withMessage('Passowrd is required'),
     handleValidationErrors
 ];
 
@@ -34,17 +34,17 @@ validateLogin, async (req, res, next) => {
     const user = await User.login({credential, password});
 
     if (!user) {
-        const err = new Error('Login failed');
+        const err = new Error('Invalid Credentials');
         err.status = 401;
-        err.title = 'Login failed';
-        err.errors = ['The provided credentials were invalid'];
+        err.title = 'Invalid Credentials';
+        err.errors = ['Invalid Credentials'];
         return next(err);
     }
 
-    await setTokenCookie(res, user);
+    const token = await setTokenCookie(res, user);
 
     return res.json({
-        user
+        user, token
     });
 }
 );

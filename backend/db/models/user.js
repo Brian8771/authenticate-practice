@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       return User.scope('currentUser').findByPk(id)
     }
     static async login({ credential, password}) {
-      const {Op } = require('sequelize');
+      const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
@@ -78,7 +78,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     hashedPassword: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING.BINARY,
       allowNull: false,
       validate: {
         len: [60, 60]
@@ -97,7 +97,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     scopes: {
       currentUser: {
-        attributes: {exclude: ["hashedPassword"]}
+        attributes: {exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'previewImage']}
       },
       loginUser: {
         attributes: {}
