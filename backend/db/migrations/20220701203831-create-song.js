@@ -14,7 +14,7 @@ module.exports = {
       },
       albumId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Albums'}
+        // references: {model: 'Albums'}
       },
       title: {
         type: Sequelize.STRING,
@@ -32,11 +32,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },
