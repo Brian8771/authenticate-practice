@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     toSafeObject() {
       const {id, firstName, lastName, email, username} = this;
-      return {id, username, email};
+      return {id, firstName, lastName, email, username};
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString())
