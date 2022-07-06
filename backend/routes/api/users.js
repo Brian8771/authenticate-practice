@@ -28,11 +28,24 @@ const validateSignup = [
 
 const checkRepeats = [
     check('email')
-    .exists()
+    .exists({ checkFalsy: true })
+    .custom(async function checkEmail(email){
+        const user = await User.findAll({where: {email: email}});
+        if (user.length !== 0) {
+            throw Error
+        }
+    })
     .withMessage("User with that email already exists"),
     check('username')
-    .exists()
-    .withMessage('"User with that username already exists"'),
+    .exists({ checkFalsy: true })
+    .custom(
+        async function checkUsername(username){
+            const user = await User.findAll({where: {username: username}});
+            if (user.length !== 0) {
+                throw Error
+            }
+        })
+    .withMessage("User with that username already exists"),
     handleRepeats
 ]
 
