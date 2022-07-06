@@ -56,7 +56,7 @@ module.exports = {
      */
     const Op = Sequelize.Op;
     await queryInterface.bulkDelete('Songs', {
-      title: {[Op.in]: ['BriansSong', 'song of Brian', 'Mind Mischief', 'Apocalypse']}
+      title: {[Op.in]: ['BriansSong', 'song of Brian', 'Mind Mischief', 'Apocalypse Dreams']}
     }, {})
   }
 };
