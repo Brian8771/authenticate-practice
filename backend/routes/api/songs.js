@@ -25,7 +25,7 @@ router.get('/', async(req, res) => {
     res.json(songs);
 })
 
-router.get('/current', restoreUser, async(req, res) => {
+router.get('/current',[requireAuth, restoreUser], async(req, res) => {
     const {id} = req.user
     const songs = await Song.findAll({
         where: {userId: id}
@@ -62,9 +62,9 @@ router.get('/:id', async(req, res) => {
     res.json({songs, artist, album});
 })
 
-router.put('/:id',validateSongAndBody, async(req, res) => {
+router.put('/:id', [requireAuth, restoreUser, validateSongAndBody], async(req, res) => {
     const {title, description, url, previewImage} = req.body;
-
+    const {id} = req.user;
     const song = await Song.findOne({where: {id: req.params.id}});
 
     if (!song) {
@@ -74,11 +74,46 @@ router.put('/:id',validateSongAndBody, async(req, res) => {
             statusCode: 404
         })
     }
+    if (song.userId !== id) {
+        res.status(403);
+        res.json({
+            message: 'Forbidden',
+            statusCode: 403
+        });
+    }
     if (title) song.title = title;
     if (description) song.description = description;
     if (url) song.url = url;
     if (previewImage) song.previewImage = previewImage;
     res.json(song)
+})
+
+router.delete('/:id',[requireAuth, restoreUser], async(req, res) => {
+    const {id} = req.user;
+    const song = await Song.findOne({where: {id: req.params.id}});
+
+    if (!song) {
+        res.status(404);
+        res.json({
+            message: "Song could't be found",
+            statusCode: 404
+        })
+    }
+
+    if (song.userId !== id) {
+        res.status(403);
+        res.json({
+            message: 'Forbidden',
+            statusCode: 403
+        });
+    }
+
+    await song.destroy();
+
+    res.json({
+        message: "Successfully deleted",
+        statusCode: 200
+    });
 })
 
 module.exports = router;
