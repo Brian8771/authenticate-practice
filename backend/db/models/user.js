@@ -105,7 +105,7 @@ module.exports = (sequelize, DataTypes) => {
         attributes: {}
       },
       artist: {
-        attributes: {include: ['id', 'username']}
+        attributes: {exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email']}
       }
     }
   });

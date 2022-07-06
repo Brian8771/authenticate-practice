@@ -10,11 +10,11 @@ module.exports = {
       },
       playlistId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Playlists'}
+        // references: {model: 'Playlists'}
       },
       songId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Songs'}
+        // references: {model: 'Songs'}
       },
       createdAt: {
         allowNull: false,
