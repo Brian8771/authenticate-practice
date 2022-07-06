@@ -52,7 +52,7 @@ const restoreUser = (req, res, next) => {
 
     const err = new Error('Authentication required');
     err.title = 'Authentication required';
-    err.errors = ['Authentication required'];
+    // err.errors = ['Authentication required'];
     err.status = 401;
     return next(err);
   }
