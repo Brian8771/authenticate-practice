@@ -18,6 +18,13 @@ const validateSongAndBody = [
     handleValidationErrors
 ];
 
+const validateBody = [
+    check('body')
+    .not()
+    .isEmpty()
+    .withMessage('Comment body is required')
+]
+
 router.get('/', async(req, res) => {
     const songs = await Song.findAll();
 
@@ -53,6 +60,30 @@ router.get('/:songId/comments', async(req, res) => {
     // }
     //  const user = await User.scope("User").findOne({where: {id: oneComment.userId}})
     res.json({comments});
+})
+
+router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async(req, res) => {
+    const {id} = req.user;
+    const {body} = req.body;
+    const song = await Song.findOne({where: {id: req.params.songId}});
+
+    if (!song) {
+        res.status(404);
+        res.json({
+            message: "Song couldn't be found",
+            statusCode: 404
+        })
+    }
+
+     Comment.create({
+        userId: id,
+        songId: req.params.songId,
+        body: body
+    })
+    const comment = await Comment.findOne({where: {body:body}});
+
+
+    res.json(comment);
 })
 
 router.get('/:id', async(req, res) => {
