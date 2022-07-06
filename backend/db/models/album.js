@@ -29,6 +29,16 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Album',
+    defaultScope: {
+    attributes: {}
+    },
+    scopes: {
+      albumSong: {
+        attributes: {
+          exclude: ['userId', 'description', 'createdAt', 'updatedAt']
+        }
+      }
+    }
   });
   return Album;
 };

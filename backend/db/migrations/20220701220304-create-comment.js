@@ -14,7 +14,7 @@ module.exports = {
       },
       songId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Songs'}
+        // references: {model: 'Songs'}
       },
       body: {
         type: Sequelize.STRING,
