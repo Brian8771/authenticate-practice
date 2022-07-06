@@ -80,10 +80,10 @@ router.put('/:id', [requireAuth, restoreUser, validateSongAndBody], async(req, r
             statusCode: 403
         });
     }
-    if (title) song.title = title;
-    if (description) song.description = description;
-    if (url) song.url = url;
-    if (previewImage) song.previewImage = previewImage;
+    if (title) song.update({title: title})
+    if (description) song.update({description: description});
+    if (url) song.update({url: url});
+    if (previewImage) song.update({previewImage: previewImage});
     res.json(song)
 })
 
@@ -101,7 +101,7 @@ router.delete('/:id',[requireAuth, restoreUser], async(req, res) => {
 
     if (song.userId !== id) {
         res.status(403);
-        res.json({
+        return res.json({
             message: 'Forbidden',
             statusCode: 403
         });
