@@ -1,35 +1,36 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Songs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName:{
-        type: Sequelize.STRING,
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {model: 'Users'},
+        onDelete: 'CASCADE'
       },
-      lastName: {
+      albumId: {
+        type: Sequelize.INTEGER,
+        references: {model: 'Albums'},
+        onDelete: 'CASCADE'
+      },
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      description: {
         type: Sequelize.STRING
       },
-      username: {
-        type: Sequelize.STRING(30),
-        allowNull: false,
-      },
-      email: {
-        type: Sequelize.STRING(256),
-        allowNull: false,
-
-      },
-      hashedPassword: {
-        type: Sequelize.STRING.BINARY,
+      url: {
+        type: Sequelize.STRING,
         allowNull: false
       },
       previewImage: {
-        type: Sequelize.STRING,
-        defaultValue: 'No Image'
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +45,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Songs');
   }
 };

@@ -500,7 +500,7 @@ Deletes an existing song.
 * Require proper authorization: Song must belong to the current user
 * Request
   * Method: DELETE
-  * URL: /songs/:songId
+  * URL: /songs/:id
   * Body: none
 
 * Successful Response
