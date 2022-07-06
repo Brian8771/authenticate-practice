@@ -10,7 +10,7 @@ module.exports = {
       },
       playlistId: {
         type: Sequelize.INTEGER,
-        // references: {model: 'Playlists'}
+        references: {model: 'Playlists'}
       },
       songId: {
         type: Sequelize.INTEGER,
@@ -18,11 +18,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },

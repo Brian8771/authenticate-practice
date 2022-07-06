@@ -1,7 +1,7 @@
 const express = require('express');
 const {restoreUser} = require('../../utils/auth');
 const {requireAuth} = require('../../utils/auth');
-const {Song, Album, User} = require('../../db/models');
+const {Song, Album, User, Comment} = require('../../db/models');
 const {check} = require('express-validator');
 const {handleValidationErrors} = require('../../utils/validation');
 const router = express.Router();
@@ -18,6 +18,14 @@ const validateSongAndBody = [
     handleValidationErrors
 ];
 
+const validateBody = [
+    check('body')
+    .not()
+    .isEmpty()
+    .withMessage('Comment body is required'),
+    handleValidationErrors
+]
+
 router.get('/', async(req, res) => {
     const songs = await Song.findAll();
 
@@ -33,9 +41,54 @@ router.get('/current',[requireAuth, restoreUser], async(req, res) => {
     res.json(songs);
 })
 
+router.get('/:songId/comments', async(req, res) => {
+    // const oneComment = await Comment.findOne({where: {songId: req.params.songId}})
+    const comments = await Comment.findAll({
+        include: {
+            model: User,
+            attributes: ['id', 'username']
+        },
+        where: {songId: req.params.songId}});
+    if (comments.length === 0) {
+        res.status(404);
+        return res.json({
+            message: "Song couldn't be found",
+            statusCode: 404
+        })
+    }
+    // for (let comment of comments) {
+
+    // }
+    //  const user = await User.scope("User").findOne({where: {id: oneComment.userId}})
+    res.json({comments});
+})
+
+router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async(req, res) => {
+    const {id} = req.user;
+    const {body} = req.body;
+    const song = await Song.findOne({where: {id: req.params.songId}});
+
+    if (!song) {
+        res.status(404);
+        res.json({
+            message: "Song couldn't be found",
+            statusCode: 404
+        })
+    }
+
+     Comment.create({
+        userId: id,
+        songId: req.params.songId,
+        body: body
+    })
+    const comment = await Comment.findOne({where: {body:body}});
+
+
+    res.json(comment);
+})
+
 router.get('/:id', async(req, res) => {
     const {id} = req.params;
-
     const songs = await Song.findOne({
 
         where: {id: id}
