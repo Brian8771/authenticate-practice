@@ -74,6 +74,64 @@ router.post('/', [requireAuth, restoreUser, validateTitle], async(req, res) => {
 
 })
 
+router.put('/:id',[requireAuth, restoreUser, validateTitle], async(req, res) => {
+    const {id} = req.user;
+    const {title, description, imageUrl} = req.body;
+
+    const fixAlbum = await Album.findOne({where: {id: req.params.id}});
+
+
+    if (!fixAlbum) {
+        res.status(404);
+        res.json({
+            message: "Album couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    if (fixAlbum.userId !== id) {
+        res.status(403);
+        res.json({
+            message: 'Forbidden',
+            statusCode: 403
+        });
+    };
+
+    if (title) fixAlbum.update({title: title});
+    if (description) fixAlbum.update({description: description});
+    if (imageUrl) fixAlbum.update({previewImage: imageUrl});
+
+    res.json(fixAlbum);
+});
+router.delete('/:id', [requireAuth, restoreUser],async(req,res) => {
+    const {id} = req.user;
+
+    const album = await Album.findOne({where: {id: req.params.id}});
+
+    if (!album) {
+        res.status(404);
+        return res.json({
+            message: "Couldn't be found",
+            statusCode: 404
+        })
+    };
+
+    if (album.userId !== id) {
+        res.status(403);
+        return res.json({
+            message: 'Forbidden',
+            statusCode: 403
+        })
+    };
+
+    await album.destroy();
+
+    res.json({
+        message: "Successfully deleted",
+        statusCode: 200
+    })
+})
+
 router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], async(req, res) => {
     const {id} = req.user;
 
