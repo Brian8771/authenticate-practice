@@ -4,8 +4,20 @@ const {requireAuth} = require('../../utils/auth');
 const {Song, Album, User} = require('../../db/models');
 const {check} = require('express-validator');
 const user = require('../../db/models/user');
-
+const {handleValidationErrors} = require('../../utils/validation');
 const router = express.Router();
+
+const validateSongAndBody = [
+    check('title')
+    .not()
+    .isEmpty()
+    .withMessage('Song title is required'),
+    check('url')
+    .not()
+    .isEmpty()
+    .withMessage('Audio is required'),
+    handleValidationErrors
+];
 
 router.get('/', async(req, res) => {
     const songs = await Song.findAll();
@@ -38,7 +50,7 @@ router.get('/:id', async(req, res) => {
         })
     }
 
-    const artist = await User.scope("artist").findOne({
+    const artist = await User.scope("Artist").findOne({
 
         where: {id: songs.userId}
     });
@@ -48,6 +60,25 @@ router.get('/:id', async(req, res) => {
     });
 
     res.json({songs, artist, album});
+})
+
+router.put('/:id',validateSongAndBody, async(req, res) => {
+    const {title, description, url, previewImage} = req.body;
+
+    const song = await Song.findOne({where: {id: req.params.id}});
+
+    if (!song) {
+        res.status(404);
+        res.json({
+            message: "Song could't be found",
+            statusCode: 404
+        })
+    }
+    if (title) song.title = title;
+    if (description) song.description = description;
+    if (url) song.url = url;
+    if (previewImage) song.previewImage = previewImage;
+    res.json(song)
 })
 
 module.exports = router;
