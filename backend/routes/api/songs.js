@@ -22,7 +22,8 @@ const validateBody = [
     check('body')
     .not()
     .isEmpty()
-    .withMessage('Comment body is required')
+    .withMessage('Comment body is required'),
+    handleValidationErrors
 ]
 
 router.get('/', async(req, res) => {
