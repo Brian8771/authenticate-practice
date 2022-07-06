@@ -18,6 +18,14 @@ const validateTitleAndUrl = [
     handleValidationErrors
 ];
 
+const validateTitle = [
+    check('title')
+    .not()
+    .isEmpty()
+    .withMessage('Album title is required'),
+    handleValidationErrors
+]
+
 router.get('/', async(req, res) => {
     const albums = await Album.findAll();
 
@@ -29,6 +37,41 @@ router.get('/current',[requireAuth, restoreUser], async(req, res) => {
     const albums = await Album.findAll({where: {userId: id}});
 
     res.json(albums);
+})
+
+router.get('/:id', async(req, res) => {
+    const album = await Album.findOne({where: {id: req.params.id}});
+
+    if (!album) {
+        res.status(404);
+        res.json({
+            message: "Album couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    const artist = await User.scope('Artist').findOne({where: {id: album.userId}})
+
+    const songs = await Song.findAll({where: {albumId: album.id}});
+
+    res.json({album, artist, songs})
+})
+
+router.post('/', [requireAuth, restoreUser, validateTitle], async(req, res) => {
+    const {id} = req.user;
+    const {title, description, imageUrl} = req.body;
+
+    const newAlbum = await Album.create({
+        userId: id,
+        title,
+        description,
+        previewImage: imageUrl
+    });
+
+    const album = await Album.findOne({where: {title: title}});
+    res.status(201);
+    res.json(album);
+
 })
 
 router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], async(req, res) => {
@@ -69,7 +112,7 @@ router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], a
     // if (description) album.description = description;
     // if (url) album.url = url;
     // if (imageUrl) album.previewImage = imageUrl;
-
+    res.status(201);
     res.json(foundSong);
 })
 
