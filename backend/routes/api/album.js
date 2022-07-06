@@ -18,6 +18,19 @@ const validateTitleAndUrl = [
     handleValidationErrors
 ];
 
+router.get('/', async(req, res) => {
+    const albums = await Album.findAll();
+
+    res.json(albums);
+})
+
+router.get('/current',[requireAuth, restoreUser], async(req, res) => {
+    const {id} = req.user;
+    const albums = await Album.findAll({where: {userId: id}});
+
+    res.json(albums);
+})
+
 router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], async(req, res) => {
     const {id} = req.user;
 
