@@ -16,6 +16,31 @@ module.exports = {
       userId: 1,
       songId: 1,
       body: 'This is really good'
+    },
+    {
+      userId: 1,
+      songId: 1,
+      body: 'Wow this is really good'
+    },
+    {
+      userId: 1,
+      songId: 2,
+      body: 'This is insane'
+    },
+    {
+      userId: 1,
+      songId: 2,
+      body: 'On my top 10'
+    },
+    {
+      userId: 2,
+      songId: 3,
+      body: 'Tame Impala never fails'
+    },
+    {
+      userId: 2,
+      songId: 3,
+      body: 'Cant wait for their concert'
     }
    ], {})
   },
@@ -27,6 +52,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelte('Comments', {}, {})
+    await queryInterface.bulkDelete('Comments', {}, {})
   }
 };

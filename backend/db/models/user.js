@@ -106,7 +106,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       Artist: {
         attributes: {exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email']}
+      },
+      User: {
+       attributes: {
+        exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email', 'previewImage']
       }
+    }
     }
   });
   return User;
