@@ -64,7 +64,7 @@ router.put('/:id', [requireAuth, restoreUser, validateBody], async(req, res) => 
 
 router.get('/:id', async(req, res) => {
     const playlists = await Playlist.findAll({
-        include: [{model: Song, through: {attributes:[]}}
+        include: [{model: Song}
 
                     ],
                     attributes: {},
