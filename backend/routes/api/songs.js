@@ -4,6 +4,7 @@ const {requireAuth} = require('../../utils/auth');
 const {Song, Album, User, Comment} = require('../../db/models');
 const {check} = require('express-validator');
 const {handleValidationErrors} = require('../../utils/validation');
+const {Op} = require('sequelize');
 const router = express.Router();
 
 const validateSongAndBody = [
@@ -26,10 +27,54 @@ const validateBody = [
     handleValidationErrors
 ]
 
-router.get('/', async(req, res) => {
-    const songs = await Song.findAll();
+const validatePageAndSize = [
+    check('page')
+    .optional()
+    .isInt({min: 1})
+    .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+    .optional()
+    .isInt({min: 1})
+    .withMessage("Size must be greater than or equal to 1"),
+    // check("createdAt")
+    // .optional()
+    // .custom(async function(createdAt) {
+    //     const songs = await Song.findAll({where: {createdAt: createdAt}});
+    //     if (songs.length === 0){
+    //         throw new Error
+    //     }
+    // })
+    // .withMessage('CreatedAt is invalid'),
+    check("title")
+    .optional()
+    .custom(async function(title) {
+        const songs = await Song.findAll({where: {title:title}});
+        if (songs.length === 0) {
+            throw new Error
+        }
+    })
+    .withMessage('title is invalid'),
+    handleValidationErrors
+]
 
-    res.json(songs);
+
+router.get('/',validatePageAndSize, async(req, res) => {
+    let {page, size} = req.query;
+    let pagination = {}
+    let where = {};
+    if (req.query.title) where.title = req.query.title;
+
+    if (req.query.createdAt) where.createdAt = req.query.createdAt;
+    size = size === undefined ? 20 : parseInt(size);
+    page = page === undefined ? 1 : parseInt(page);
+    console.log(size);
+    pagination.limit = size
+    pagination.offset = size * (page - 1)
+    console.log(pagination);
+    const songs = await Song.findAll({where});
+
+
+    res.json({songs, page, size});
 })
 
 router.get('/current',[requireAuth, restoreUser], async(req, res) => {
@@ -123,7 +168,7 @@ router.put('/:id', [requireAuth, restoreUser, validateSongAndBody], async(req, r
     }
     if (song.userId !== id) {
         res.status(403);
-        res.json({
+        return res.json({
             message: 'Forbidden',
             statusCode: 403
         });
