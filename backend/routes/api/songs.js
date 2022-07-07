@@ -42,7 +42,6 @@ router.get('/current',[requireAuth, restoreUser], async(req, res) => {
 })
 
 router.get('/:songId/comments', async(req, res) => {
-    // const oneComment = await Comment.findOne({where: {songId: req.params.songId}})
     const comments = await Comment.findAll({
         include: {
             model: User,
@@ -56,10 +55,6 @@ router.get('/:songId/comments', async(req, res) => {
             statusCode: 404
         })
     }
-    // for (let comment of comments) {
-
-    // }
-    //  const user = await User.scope("User").findOne({where: {id: oneComment.userId}})
     res.json({comments});
 })
 
