@@ -36,15 +36,15 @@ const validatePageAndSize = [
     .optional()
     .isInt({min: 1})
     .withMessage("Size must be greater than or equal to 1"),
-    // check("createdAt")
-    // .optional()
-    // .custom(async function(createdAt) {
-    //     const songs = await Song.findAll({where: {createdAt: createdAt}});
-    //     if (songs.length === 0){
-    //         throw new Error
-    //     }
-    // })
-    // .withMessage('CreatedAt is invalid'),
+    check("createdAt")
+    .optional()
+    .custom(async function(createdAt) {
+        const songs = await Song.findAll({where: {createdAt: createdAt}});
+        if (songs.length === 0){
+            throw new Error
+        }
+    })
+    .withMessage('CreatedAt is invalid'),
     check("title")
     .optional()
     .custom(async function(title) {
@@ -67,10 +67,9 @@ router.get('/',validatePageAndSize, async(req, res) => {
     if (req.query.createdAt) where.createdAt = req.query.createdAt;
     size = size === undefined ? 20 : parseInt(size);
     page = page === undefined ? 1 : parseInt(page);
-    console.log(size);
+
     pagination.limit = size
     pagination.offset = size * (page - 1)
-    console.log(pagination);
     const songs = await Song.findAll({where});
 
 
