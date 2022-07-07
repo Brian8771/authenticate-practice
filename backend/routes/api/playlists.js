@@ -113,11 +113,11 @@ router.delete('/:id', [requireAuth, restoreUser], async(req, res) => {
 
 })
 
-router.post('/:playlistId/songs', [requireAuth, restoreUser], async(req, res) => {
+router.post('/:id/songs', [requireAuth, restoreUser], async(req, res) => {
     const {id} = req.user;
     const {songId} = req.body;
 
-    const playlist = await Playlist.findOne({where: {id: req.params.playlistId}});
+    const playlist = await Playlist.findOne({where: {id: req.params.id}});
     const song = await Song.findOne({where: {id: songId}});
 
     if (!playlist) {
@@ -142,20 +142,20 @@ router.post('/:playlistId/songs', [requireAuth, restoreUser], async(req, res) =>
             statusCode: 403
         });
     }
-    let playlists = await PlaylistSong.findOne({where: {playlistId: req.params.playlistId, songId: songId}})
+    let playlists = await PlaylistSong.findOne({where: {playlistId: req.params.id, songId: songId}})
     if (playlists) {
         return res.json("Song exists in playlist")
     }
     else {
         await PlaylistSong.create({
-            playlistId: req.params.playlistId,
+            playlistId: req.params.id,
             songId: songId
         });
 
     }
 
 
-    const playlistSong = await PlaylistSong.findOne({where: {playlistId: req.params.playlistId, songId: songId}})
+    const playlistSong = await PlaylistSong.findOne({where: {playlistId: req.params.id, songId: songId}})
 
     res.json({
         playlistSong,
