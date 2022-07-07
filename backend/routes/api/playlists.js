@@ -6,6 +6,27 @@ const {check} = require('express-validator');
 const {handleValidationErrors} = require('../../utils/validation');
 const router = express.Router();
 
+router.get('/:id', async(req, res) => {
+    const playlists = await Playlist.findAll({
+        include: [{model: Song, through: {attributes:[]}}
+
+                    ],
+                    attributes: {},
+                    where: {id: req.params.id},
+
+    })
+    if (!playlists.length) {
+        res.status(404);
+        res.json({
+            message: "Playlist couldn't be found",
+            statusCode: 404
+        });
+    }
+
+
+    res.json({playlists})
+})
+
 router.post('/:playlistId/songs', [requireAuth, restoreUser], async(req, res) => {
     const {id} = req.user;
     const {songId} = req.body;
@@ -49,16 +70,10 @@ router.post('/:playlistId/songs', [requireAuth, restoreUser], async(req, res) =>
 
 
     const playlistSong = await PlaylistSong.findOne({where: {playlistId: req.params.playlistId, songId: songId}})
-    // const playlists = await Playlist.findAll({
-    //     include: [{model: Song}
 
-    //                 ],
-    //                 attributes: {},
-    //                 where: {id: req.params.playlistId}
-    // })
     res.json({
         playlistSong,
-        //  playlists
+
 });
 })
 
