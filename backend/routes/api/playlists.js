@@ -13,7 +13,13 @@ const validateBody = [
     .withMessage('Playlist name is required'),
     handleValidationErrors
 ]
+router.get('/current', [requireAuth, restoreUser], async(req, res) => {
+    const {id} = req.user;
 
+    const playlist = await Playlist.findAll({where: {userid: id}});
+
+    res.json({playlist})
+})
 
 router.post('/',[requireAuth, restoreUser, validateBody], async(req, res) => {
     const {id} = req.user;
