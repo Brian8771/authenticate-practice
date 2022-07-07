@@ -32,4 +32,46 @@ router.get('/:id', async(req, res) => {
     })
 })
 
+router.get('/:id/songs', async(req, res) => {
+    const songs = await Song.findAll({where: {userId: req.params.id}});
+
+    if (songs.length === 0) {
+        res.status(404);
+        res.json({
+            message: "Artist couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    res.json(songs)
+})
+
+router.get('/:id/albums', async(req, res) => {
+    const albums = await Album.findAll({where: {userId: req.params.id}});
+
+    if (albums.length === 0) {
+        res.status(404);
+        res.json({
+            message: "Artist couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    res.json(albums)
+})
+
+router.get('/:id/playlists', async(req, res) => {
+    const playlist = await Playlist.findAll({where: {userId: req.params.id}});
+
+    if (playlist.length === 0) {
+        res.status(404);
+        res.json({
+            message: "Artist couldn't be found",
+            statusCode: 404
+        })
+    }
+
+    res.json(playlist)
+})
+
 module.exports = router;
