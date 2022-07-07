@@ -26,10 +26,36 @@ const validateBody = [
     handleValidationErrors
 ]
 
-router.get('/', async(req, res) => {
-    const songs = await Song.findAll();
+const validatePageAndSize = [
+    check('page')
+    .optional()
+    .isInt({min: 1})
+    .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+    .optional()
+    .isInt({min: 1})
+    .withMessage("Size must be greater than or equal to 1"),
+    check("createdAt")
+    .optional()
+    .isDate()
+    .withMessage('CreatedAt is invalid'),
+    handleValidationErrors
+]
 
-    res.json(songs);
+
+router.get('/',validatePageAndSize, async(req, res) => {
+    let {page, size} = req.query;
+    let pagination = {}
+    let where = {};
+    if (req.query.title) where.title = req.query.title;
+    if (req.query.createdAt) where.createdAt = req.query.createdAt;
+    size = size === undefined ? 20 : parseInt(size);
+    page = page === undefined ? 1 : parseInt(page);
+    pagination.limit = size
+    pagination.offset = size * (page - 1)
+    const songs = await Song.findAll({where, ...pagination});
+
+    res.json({songs, page, size});
 })
 
 router.get('/current',[requireAuth, restoreUser], async(req, res) => {
@@ -123,7 +149,7 @@ router.put('/:id', [requireAuth, restoreUser, validateSongAndBody], async(req, r
     }
     if (song.userId !== id) {
         res.status(403);
-        res.json({
+        return res.json({
             message: 'Forbidden',
             statusCode: 403
         });
