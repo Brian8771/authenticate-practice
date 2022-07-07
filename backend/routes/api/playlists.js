@@ -10,9 +10,10 @@ const validateBody = [
     check('name')
     .not()
     .isEmpty()
-    .withMessage('Playlist body is required'),
+    .withMessage('Playlist name is required'),
     handleValidationErrors
 ]
+
 
 router.post('/',[requireAuth, restoreUser, validateBody], async(req, res) => {
     const {id} = req.user;
@@ -34,6 +35,26 @@ router.post('/',[requireAuth, restoreUser, validateBody], async(req, res) => {
     res.json(playlist)
 })
 
+router.put('/:id', [requireAuth, restoreUser, validateBody], async(req, res) => {
+    const {id} = req.user;
+    const {name, imageUrl} = req.body;
+
+    const playlists = await Playlist.findOne({where:{id: req.params.id}});
+
+    if (!playlists) {
+        res.status(404);
+        res.json({
+            message: "Playlist couldn't be found",
+            statusCode: 404
+        });
+    }
+    playlists.update({name: name});
+    if (imageUrl) playlists.update({previewImage: imageUrl});
+
+    res.json({
+        playlists
+    })
+})
 
 router.get('/:id', async(req, res) => {
     const playlists = await Playlist.findAll({
@@ -46,7 +67,7 @@ router.get('/:id', async(req, res) => {
     })
     if (!playlists.length) {
         res.status(404);
-        res.json({
+        return res.json({
             message: "Playlist couldn't be found",
             statusCode: 404
         });
@@ -54,6 +75,36 @@ router.get('/:id', async(req, res) => {
 
 
     res.json({playlists})
+})
+
+router.delete('/:id', [requireAuth, restoreUser], async(req, res) => {
+    const {id} = req.user;
+
+    const playlist = await Playlist.findOne({where: {id: req.params.id}});
+
+    if (!playlist) {
+        res.status(404);
+        return res.json({
+            message: "Playlist couldn't be found",
+            statusCode: 404
+        });
+    }
+
+    if (playlist.userId !== id) {
+        res.status(403);
+        return res.json({
+            message: 'Forbidden',
+            statusCode: 403
+        });
+    };
+
+    await playlist.destroy();
+
+    res.json({
+        message: "Successfully deleted",
+        statusCode: 404
+    })
+
 })
 
 router.post('/:playlistId/songs', [requireAuth, restoreUser], async(req, res) => {
