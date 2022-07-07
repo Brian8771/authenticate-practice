@@ -16,7 +16,7 @@ const validateBody = [
 router.get('/current', [requireAuth, restoreUser], async(req, res) => {
     const {id} = req.user;
 
-    const playlist = await Playlist.findAll({where: {userid: id}});
+    const playlist = await Playlist.findAll({where: {userId: id}});
 
     res.json({playlist})
 })
