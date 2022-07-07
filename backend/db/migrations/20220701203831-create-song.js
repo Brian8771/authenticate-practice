@@ -30,7 +30,8 @@ module.exports = {
         allowNull: false
       },
       previewImage: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 'No image'
       },
       createdAt: {
         allowNull: false,

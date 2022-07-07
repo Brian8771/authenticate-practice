@@ -6,6 +6,35 @@ const {check} = require('express-validator');
 const {handleValidationErrors} = require('../../utils/validation');
 const router = express.Router();
 
+const validateBody = [
+    check('name')
+    .not()
+    .isEmpty()
+    .withMessage('Playlist body is required'),
+    handleValidationErrors
+]
+
+router.post('/',[requireAuth, restoreUser, validateBody], async(req, res) => {
+    const {id} = req.user;
+    const {name, imageUrl} = req.body;
+    let playlistFinder = await Playlist.findOne({where: {name: name, userId: id}})
+    if (playlistFinder){
+        return res.json({
+            message: "Playlist name and user already exist"
+        })
+    }
+    await Playlist.create({
+        userId: id,
+        name: name,
+        previewImage: imageUrl
+    })
+
+    const playlist = await Playlist.findOne({where: {name: name, userId: id}})
+
+    res.json(playlist)
+})
+
+
 router.get('/:id', async(req, res) => {
     const playlists = await Playlist.findAll({
         include: [{model: Song, through: {attributes:[]}}
