@@ -122,15 +122,17 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
         })
     }
 
-     Comment.create({
+    const newComment = await Comment.create({
         userId: id,
         songId: req.params.songId,
         body: body
     })
-    let bods = req.body;
-    let bod = bods.body;
-    console.log(bod, '-----')
-    const comment = await Comment.findAll({where: {body:bod, userId:id}})
+
+
+    // let bods = req.body;
+    // let bod = bods.body;
+    // console.log(bod, '-----')
+    const comment = await Comment.findAll({where: {body:body, userId:id}})
 
 
     res.json(comment);
