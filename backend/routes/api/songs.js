@@ -114,13 +114,13 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
             statusCode: 404
         })
     }
-    const comments = await Comment.findAll({where: {body:body, userId:id}});
+    // const comments = await Comment.findAll({where: {body:body, userId:id}});
 
-    if (comments.length !== 0) {
-        return res.json({
-            message: "Can't have duplicate comments by same user"
-        })
-    }
+    // if (comments.length !== 0) {
+    //     return res.json({
+    //         message: "Can't have duplicate comments by same user"
+    //     })
+    // }
 
     const newComment = await Comment.create({
         userId: id,
@@ -129,9 +129,7 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
     })
 
 
-    // let bods = req.body;
-    // let bod = bods.body;
-    // console.log(bod, '-----')
+
     const comment = await Comment.findAll({where: {body:body, userId:id}})
 
 
