@@ -127,9 +127,10 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
         songId: req.params.songId,
         body: body
     })
-    console.log(body)
-    // const comment = await Comment.findAll({where: {body:body}});
-    const comment = await Comment.findAll({where: {body:body, userId:id}})
+    let bods = req.body;
+    let bod = bods.body;
+    console.log(bod, '-----')
+    const comment = await Comment.findAll({where: {body:bod, userId:id}})
 
 
     res.json(comment);
