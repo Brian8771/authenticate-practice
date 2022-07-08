@@ -106,7 +106,7 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
     const {id} = req.user;
     const {body} = req.body;
     const song = await Song.findOne({where: {id: req.params.songId}});
-    body = songComment;
+    songComment = body;
     if (!song) {
         res.status(404);
         res.json({
