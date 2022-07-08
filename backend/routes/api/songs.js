@@ -106,7 +106,7 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
     const {id} = req.user;
     const {body} = req.body;
     const song = await Song.findOne({where: {id: req.params.songId}});
-    songComment = body;
+
     if (!song) {
         res.status(404);
         res.json({
@@ -125,12 +125,13 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
      Comment.create({
         userId: id,
         songId: req.params.songId,
-        body: songComment
+        body: body
     })
-    const comment = await Comment.findOne({where: {songId: req.params.songId, userId:id, body: songComment}});
+    const comment = await Comment.findAll({where: {songId: req.params.songId, userId:id}});
 
+    commentRequest = comment[comment.length - 1];
 
-    res.json(comment);
+    res.json(commentRequest);
 })
 
 router.get('/:id', async(req, res) => {
