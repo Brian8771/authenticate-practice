@@ -91,7 +91,7 @@ router.put('/:id',[requireAuth, restoreUser, validateTitle], async(req, res) => 
 
     if (fixAlbum.userId !== id) {
         res.status(403);
-        res.json({
+        return res.json({
             message: 'Forbidden',
             statusCode: 403
         });
