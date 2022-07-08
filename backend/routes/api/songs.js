@@ -127,11 +127,11 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
         songId: req.params.songId,
         body: body
     })
-    const comment = await Comment.findAll({where: {songId: req.params.songId, userId:id}});
+    const comment = await Comment.findAll({where: {body: body,songId: req.params.songId, userId:id}});
 
-    commentRequest = comment[comment.length - 1];
 
-    res.json(commentRequest);
+
+    res.json(comment);
 })
 
 router.get('/:id', async(req, res) => {
