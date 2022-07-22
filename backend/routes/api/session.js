@@ -16,13 +16,13 @@ const validateLogin = [
     handleValidationErrors
 ];
 
-router.get('/', [restoreUser, requireAuth], (req, res) => {
+router.get('/', [restoreUser], (req, res) => {
     const {user} = req;
     if (user) {
         return res.json(
             user.toSafeObject()
         );
-    }else return res.json({});
+    }else return res.json('noInput');
 }
 );
 
