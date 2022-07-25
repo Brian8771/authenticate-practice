@@ -17,7 +17,7 @@ function SignupFormPage() {
     const [firstName, setFirstname] = useState('');
     const [lastName, setLastname] = useState('');
 
-    if (sessionUser.username) return <Redirect to="/" />
+    if (sessionUser) return <Redirect to="/" />
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {

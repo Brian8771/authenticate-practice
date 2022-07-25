@@ -22,7 +22,7 @@ router.get('/', [restoreUser], (req, res) => {
         return res.json(
             user.toSafeObject()
         );
-    }else return res.json('noInput');
+    }else return res.json(null);
 }
 );
 
