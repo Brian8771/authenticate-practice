@@ -14,12 +14,6 @@
     margin: 0;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     padding: 0;
-}
-
-.header {
-    text-indent: 18px;
-    font-size: 32px;
-    font-weight: 400;
 }

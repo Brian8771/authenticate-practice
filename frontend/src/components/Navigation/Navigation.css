@@ -8,12 +8,24 @@
 .navLinks {
     display: inline;
     padding: 5.1% 12px;
+    justify-content: center;
+    align-items: center;
     /* width: 20%; */
 }
 
 .liNav {
+    display: flex;
     list-style: list-item;
     padding: 6px 0;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    position: relative;
+    top: 8px;
+}
+
+.divForLi {
+
     border-left: black solid .75px;
     border-right: black solid .75px;
 }

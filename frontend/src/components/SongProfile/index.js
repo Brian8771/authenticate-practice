@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as songActions from '../../store/Songs';
 import * as commentActions from '../../store/comments';
 import {useHistory, useParams} from 'react-router-dom';
 import EditSong from '../editForm';
-import { deleteComments } from '../../store/comments';
+
 
 function SongProfile() {
     const history = useHistory();
@@ -24,20 +24,22 @@ function SongProfile() {
         history.push('/');
     }
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newComment = await dispatch(commentActions.createComments(songId, body)).catch(async (res) => {
             const data = await res.json();
             console.log(data);
-            if (data)
+            if (data.message)
             setErrors([data]);
         });
         await dispatch(commentActions.getCommentsById(songId))
+
         if (newComment) {
             setBody('')
+            setErrors([]);
         }
-        console.log(newComment)
-        // return setErrors(['User must be logged in']);
     }
 
     const deleteCommentButton = async (id, songId) => {
@@ -67,6 +69,9 @@ function SongProfile() {
             <h3>{songs[songId].songs.description}</h3>
             <h3>{songs[songId].artist.username}</h3>
             <button onClick={() => history.push('/')}>Back</button>
+            <audio controls>
+            <source src='https://beardbarnmusicbucket.s3.amazonaws.com/The+Wild+Horse' type="audio/ogg" />
+            </audio>
             {deleteButton}
             {editButton}
             <div>
@@ -74,7 +79,7 @@ function SongProfile() {
                 <form onSubmit={handleSubmit}>
                 <ul>
                 {errors && errors.map(error =>
-                <li key={error}>{error.message}</li>
+                <li key={error.id}>{error.message}</li>
                 )}
                 </ul>
                 <label>

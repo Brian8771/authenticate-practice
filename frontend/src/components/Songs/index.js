@@ -16,26 +16,27 @@ function Songs() {
         setIsLoaded(true))
     }
     , [dispatch, songs])
-
+    // style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '80%', flexFlow: 'row wrap', listStyleType: 'none', margin: 0,}}
     return (
-       <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#CC', height: '100%', width: '100%'}}>
-        <ul style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '80%', flexFlow: 'row wrap', margin: '0 10%', listStyleType: 'none'}}>
+       <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100%', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
+        <h2 className='header' style={{backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0'}}>Songs:</h2>
+        <ul className='grid' >
         {isLoaded && songs &&
-        <h2>Songs:</h2> &&
         songs.map(song =>
-            <div className='divContainer'>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 
-            <li key={song.id}  >
+            <li className='gridChildren' key={song.id}  >
                 <Link to={`/songs/${song.id}`}>
 
-                <img style={{height: '6em', width: '6em',}} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={song.description} />
+                <img style={{height: '10em', width: '10em'}} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={song.description} />
                 </Link>
                 <br/>
-                <div style={{fontWeight: 550}}>
+                <div style={{fontWeight: 550, fontSize: '14px'}}>
                 {song.title}
                 </div>
-                <br/>
+                <div style={{display: 'border-box', height: '30px', width: '100px', fontSize:'12px'}}>
                 {song.description}
+                </div>
                 <br />
             </li>
             </div>

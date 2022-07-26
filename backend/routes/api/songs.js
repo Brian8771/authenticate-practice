@@ -115,7 +115,7 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
         })
     }
     const comments = await Comment.findAll({where: {body:body, userId:id}});
-
+    //delete this:
     // if (comments.length !== 0) {
     //     return res.json({
     //         message: "Can't have duplicate comments by same user"
