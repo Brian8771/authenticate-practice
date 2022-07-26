@@ -92,7 +92,7 @@ router.get('/:songId/comments', async(req, res) => {
             attributes: ['id', 'username']
         },
         where: {songId: req.params.songId}});
-    if (comments.length === 0) {
+    if (comments.length === null) {
         res.status(404);
         return res.json({
             message: "Song couldn't be found",
@@ -116,11 +116,11 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
     }
     const comments = await Comment.findAll({where: {body:body, userId:id}});
 
-    if (comments.length !== 0) {
-        return res.json({
-            message: "Can't have duplicate comments by same user"
-        })
-    }
+    // if (comments.length !== 0) {
+    //     return res.json({
+    //         message: "Can't have duplicate comments by same user"
+    //     })
+    // }
 
     const newComment = await Comment.create({
         userId: id,

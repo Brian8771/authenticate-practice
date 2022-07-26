@@ -1,0 +1,15 @@
+.logModal {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    width: 60%
+}
+
+#modal-content{
+    height: 60%;
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}

@@ -1,11 +1,19 @@
 .nav {
     display: flex;
-    padding: 10px 0;
+    padding: 0;
     /* margin: 80% 0; */
     justify-content: center;
 }
 
 .navLinks {
+    display: inline;
     padding: 5.1% 12px;
-    width: 20%;
+    /* width: 20%; */
+}
+
+.liNav {
+    list-style: list-item;
+    padding: 6px 0;
+    border-left: black solid .75px;
+    border-right: black solid .75px;
 }

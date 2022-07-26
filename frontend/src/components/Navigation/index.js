@@ -28,12 +28,12 @@ function Navigation({isLoaded}) {
     return (
 
         <ul className='nav' style={{backgroundColor: "#333", margin: '0'}}>
-            <li style={{listStyle: 'none'}}>
-                <NavLink style={{backgroundColor: '#111111', color: '#FFFFFF',textDecoration: 'none'}} className='navLinks' exact to='/'>Home</NavLink>
+            <li className='liNav' style={{listStyle: 'none'}}>
+                <NavLink style={{color: '#CCCCCC',textDecoration: 'none', fontSize: '14px', fontFamily: 'Interstate,Lucida Grande,Arial,sans-serif'}} className='navLinks' exact to='/'>Home</NavLink>
                 {isLoaded && sessionLinks}
             </li>
-            <li style={{listStyle: 'none'}}>
-                <NavLink style={{backgroundColor: '#111111', color: '#FFFFFF',textDecoration: 'none'}} className='navLinks' to='/songs/create'>Upload</NavLink>
+            <li className='liNav' style={{listStyle: 'none'}}>
+                <NavLink style={{color: '#CCCCCC',textDecoration: 'none', position: 'relative', top: '10px', fontSize: '14px', fontFamily: 'Interstate,Lucida Grande,Arial,sans-serif'}} className='navLinks' to='/songs/create'>Upload</NavLink>
             </li>
         </ul>
 

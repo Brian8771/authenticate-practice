@@ -1,32 +1,26 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import * as songActions from '../../store/Songs';
 
 
-function CreateSong() {
-    const history = useHistory();
+function EditSong({song, songId, setEdit}) {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [url, setUrl] = useState('')
-    const [imageUrl, setImageUrl] = useState('');
-    let [albumId, setAlbumId] = useState('');
+    const [title, setTitle] = useState(song[songId].songs.title);
+    const [description, setDescription] = useState(song[songId].songs.description);
+    const [url, setUrl] = useState(song[songId].songs.url)
+    const [previewImage, setPreviewImage] = useState(song[songId].songs.previewImage);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        albumId = Number(albumId)
         const song = {
+
             title,
             description,
             url,
-            imageUrl,
-            albumId
+            previewImage,
         }
-        let createdSong = await dispatch(songActions.createSongs(song));
-        if (createdSong){
-            history.push(`/songs/${createdSong.id}`);
-        }
+        let editedSong = await dispatch(songActions.editSong(songId, song));
+        await setEdit(false);
     }
 
     return (
@@ -61,17 +55,9 @@ function CreateSong() {
             <label>ImageUrl:
                 <input
                 name='imageUrl'
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
+                value={previewImage}
+                onChange={(e) => setPreviewImage(e.target.value)}
                 type='text'
-                />
-            </label>
-            <label>Album:
-                <input
-                name='album'
-                value={albumId}
-                onChange={(e) => setAlbumId(e.target.value)}
-                type='number'
                 />
             </label>
             <button type='submit'>Upload</button>
@@ -81,4 +67,4 @@ function CreateSong() {
     )
 }
 
-export default CreateSong
+export default EditSong;

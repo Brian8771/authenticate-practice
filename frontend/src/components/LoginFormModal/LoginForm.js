@@ -22,9 +22,14 @@ function LoginForm() {
         if (data && data.errors) setErrors(data.errors);
       });
   }
+  const handleDemoUser =() => {
+    setCredential('Demo-lition');
+    setPassword('password');
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className='logModalContainer'>
+    <form onSubmit={handleSubmit} className='logModal'>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -47,7 +52,9 @@ function LoginForm() {
         />
       </label>
       <button type="submit">Log In</button>
+      <button onClick={() => handleDemoUser()}>DemoUser</button>
     </form>
+    </div>
   );
 }
 
