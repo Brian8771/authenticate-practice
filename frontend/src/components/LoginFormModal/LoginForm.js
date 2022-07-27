@@ -30,28 +30,33 @@ function LoginForm() {
   return (
     <div className='logModalContainer'>
     <form onSubmit={handleSubmit} className='logModal'>
+      <h2 style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Welcome!</h2>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      <label>
-        Username or Email
+
         <input
+          style={{fontSize: '14px'}}
+          className='input'
           type="text"
           value={credential}
+          placeholder='Your Email Address/Username'
           onChange={(e) => setCredential(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Password
+        <br/>
         <input
+        style={{fontSize: '14px'}}
+          className='input'
           type="password"
           value={password}
+          placeholder='Password'
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
+        <br/>
       <button type="submit">Log In</button>
+        <br/>
       <button onClick={() => handleDemoUser()}>DemoUser</button>
     </form>
     </div>

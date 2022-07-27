@@ -4,6 +4,8 @@ import {useSelector} from 'react-redux';
 import ProfileButton from './ProfileButton'
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
+import CreateAccountFormModal from '../CreateAccountModal';
+
 
 function Navigation({isLoaded}) {
     const sessionUser = useSelector(state => state.session.user);
@@ -24,7 +26,7 @@ function Navigation({isLoaded}) {
             </div>
             <div className='divForLi'>
             <li className='liNav'>
-            <NavLink className='navLinks' style={{backgroundColor: '#FF5500', color: '#FFFFFF', textDecoration: 'none', fontSize: '14px', padding: '4px 10px', borderRadius: '2px'}} to='/signup'>Create Account</NavLink>
+            <CreateAccountFormModal className='navLinks' style={{backgroundColor: '#FF5500', color: '#FFFFFF', textDecoration: 'none', fontSize: '14px', padding: '4px 10px', borderRadius: '2px'}} to='/signup'>Create Account</CreateAccountFormModal>
             </li>
             </div>
             </>
@@ -36,8 +38,11 @@ function Navigation({isLoaded}) {
     return (
 
         <ul className='nav' style={{backgroundColor: "#333", margin: '0'}}>
-            <div className='divForLi'>
-                <img style={{height: '50px', width: '100px'}} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQL6R_9ciZNddGn5DVMhzDPu_AIUTkeOHHfgw&usqp=CAU' alt='soundCloud'/>
+            <div style={{display: 'flex', backgroundColor: 'black', width: '80px', justifyContent: 'right', alignItems: 'center'}}>
+                <img style={{height: '25px', width: '100px'}} src='https://a-v2.sndcdn.com/assets/images/peace-cloud-28ad0963.svg' alt='soundCloud'/>
+            </div>
+            <div  style={{display: 'flex', backgroundColor: 'black', width: '110px', justifyContent: 'left', alignItems: 'center'}}>
+                <img style={{height: '25px', width: '100px'}} src='https://a-v2.sndcdn.com/assets/images/wordmark@2x-8fdb346f.png' alt='soundCloud'/>
             </div>
             <div className='divForLi'>
             <li className='liNav' style={{listStyle: 'none'}}>

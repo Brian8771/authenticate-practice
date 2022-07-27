@@ -19,7 +19,7 @@ function Songs() {
     // style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '80%', flexFlow: 'row wrap', listStyleType: 'none', margin: 0,}}
     return (
        <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100%', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
-        <h2 className='header' style={{backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0'}}>Songs:</h2>
+        <h2 className='header' style={{backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0'}}>Songs</h2>
         <ul className='grid' >
         {isLoaded && songs &&
         songs.map(song =>
@@ -34,7 +34,7 @@ function Songs() {
                 <div style={{fontWeight: 550, fontSize: '14px'}}>
                 {song.title}
                 </div>
-                <div style={{display: 'border-box', height: '30px', width: '100px', fontSize:'12px'}}>
+                <div style={{display: 'border-box', height: '30px', width: '160px', fontSize:'12px', margin: 0}}>
                 {song.description}
                 </div>
                 <br />

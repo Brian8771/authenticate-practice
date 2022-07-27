@@ -27,6 +27,7 @@ function UserSongs() {
 
     return (
        <div  style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100%', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
+        <h2 className='header' style={{backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0'}}>My Songs:</h2>
         <ul className='grid' >
         {isLoaded && songs &&
         songs.map(song =>
@@ -34,12 +35,15 @@ function UserSongs() {
             <li className='gridChildren' key={song.id}>
                 <Link to={`/songs/${song.id}`}>
 
-                <img style={{height: '6em', width: '6em'}} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={song.description} />
+                <img style={{height: '10em', width: '10em'}} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={song.description} />
                 </Link>
                 <br/>
+                <div style={{fontWeight: 550, fontSize: '14px'}}>
                 {song.title}
-                <br/>
+                </div>
+                <div style={{display: 'border-box', height: '30px', width: '100px', fontSize:'12px'}}>
                 {song.description}
+                </div>
                 <br />
             </li>
             </div>
