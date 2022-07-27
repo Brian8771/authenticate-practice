@@ -34,6 +34,8 @@ input.input {
     padding: 10px 0;
     font-size: 18px;
     text-indent: 5px;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+
 }
 
 button.button {
@@ -46,4 +48,5 @@ button.button {
     color: #fffdfc;
     border-radius: 3px;
     border: none;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
 }

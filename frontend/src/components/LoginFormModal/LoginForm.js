@@ -28,14 +28,13 @@ function LoginForm() {
 
   return (
     <div className='logModalContainer'>
-    <form onSubmit={handleSubmit} className='logModal'>
+    <form onSubmit={handleSubmit} className='logModals'>
       <h2 style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Welcome!</h2>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
 
         <input
-          style={{fontSize: '14px'}}
           className='input'
           type="text"
           value={credential}
@@ -45,7 +44,6 @@ function LoginForm() {
         />
         <br/>
         <input
-        style={{fontSize: '14px'}}
           className='input'
           type="password"
           value={password}
@@ -54,9 +52,9 @@ function LoginForm() {
           required
         />
         <br/>
-      <button type="submit">Log In</button>
+      <button style={{backgroundColor: '#ff5500'}} className='button' type="submit">Log In</button>
         <br/>
-      <button onClick={() => handleDemoUser()}>DemoUser</button>
+      <button style={{backgroundColor: '#ff5500'}} className='button' onClick={() => handleDemoUser()}>DemoUser</button>
     </form>
     </div>
   );

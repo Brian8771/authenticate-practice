@@ -4,6 +4,7 @@ import * as songActions from '../../store/Songs';
 import * as commentActions from '../../store/comments';
 import {useHistory, useParams} from 'react-router-dom';
 import EditSong from '../editForm';
+import './Songprofile.css';
 
 
 function SongProfile() {
@@ -32,8 +33,11 @@ function SongProfile() {
             const data = await res.json();
             console.log(data);
             if (data.message)
-            console.log(data.errors)
-            setErrors([data.errors]);
+            if (data.message === 'Validation Error') {
+
+                setErrors(data.errors);
+            }
+            else setErrors([data.message]);
         });
         await dispatch(commentActions.getCommentsById(songId))
 
@@ -51,9 +55,9 @@ function SongProfile() {
     let deleteButton;
     let editButton;
         if (user && isLoaded && songs[songId].artist.id === user.id) {
-            deleteButton =  <button onClick={() => deleteSong()}>Delete</button>;
+            deleteButton =  <button className='deleteSongButton' onClick={() => deleteSong()}>Delete</button>;
 
-            editButton = <button onClick={() => setEditSong(true)}>Edit</button>;
+            editButton = <button className='editButton' onClick={() => setEditSong(true)}>Edit</button>;
         }
 
         let content;
@@ -64,41 +68,46 @@ function SongProfile() {
         } else {
             if (isLoaded) {
 
-                content = <div style={{display: 'flex', justifyContent: 'center', margin: 'auto', flexDirection: 'column', alignItems: 'center'}}>
-            <img style={{height: '6em', width: '6em'}} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs.description} />
-            <h2>{songs[songId].songs.title}</h2>
-            <h3>{songs[songId].songs.description}</h3>
-            <h3>{songs[songId].artist.username}</h3>
-            <button onClick={() => history.push('/')}>Back</button>
-            <audio controls>
+                content =
+            <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100%', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
+            <div style={{backgroundColor: 'white', width: '80%', height: '100%'}}>
+            <div className='SongDiv'>
+            <img className='img'  src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs.description} />
+            <h2 className='title'>{songs[songId].songs.title}</h2>
+            {/* <h3>{songs[songId].songs.description}</h3> */}
+            <h3 className='artist'>{songs[songId].artist.username}</h3>
+            {/* <button onClick={() => history.push('/')}>Back</button> */}
+            <audio className='audioPlayer' controls>
             <source src='https://beardbarnmusicbucket.s3.amazonaws.com/The+Wild+Horse' type="audio/ogg" />
             </audio>
             {deleteButton}
             {editButton}
-            <div>
+            </div>
+            <div className='commentsDiv'>
                 <h3>Comments: {comment.length ? comment.length : 0}</h3>
                 <form onSubmit={handleSubmit}>
                 <ul>
                 {errors && errors.map(error =>
-                <li key={error.id}>{error}</li>
+                <li key={error}>{error}</li>
                 )}
                 </ul>
                 <label>
-                    Create Comment:
                     <input
-                    placeholder='comment'
+                    className='commentInput'
+                    placeholder='Write a comment'
                     value={body}
                     onChange={e => setBody(e.target.value)}
                     />
                 </label>
-                <button type='submit'>Submit</button>
+                <button style={{display:'none'}} type='submit'>Submit</button>
                 </form>
-                <ul>
+                <ul className='commentBorder'>
                 {comment && comment.map(({id, body, userId}) => (
 
-                   <li key={id}>{body} {user && comment && userId === user.id ? <button onClick={() => dispatch(deleteCommentButton(id, songId))} >Delete</button> : ''}</li>
+                   <li className='liEle' key={id}>{body} {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => dispatch(deleteCommentButton(id, songId))} >X</button> : ''}</li>
                 ))}
                 </ul>
+            </div>
             </div>
         </div>
             }
