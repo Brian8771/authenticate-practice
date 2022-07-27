@@ -32,7 +32,8 @@ function SongProfile() {
             const data = await res.json();
             console.log(data);
             if (data.message)
-            setErrors([data]);
+            console.log(data.errors)
+            setErrors([data.errors]);
         });
         await dispatch(commentActions.getCommentsById(songId))
 
@@ -79,7 +80,7 @@ function SongProfile() {
                 <form onSubmit={handleSubmit}>
                 <ul>
                 {errors && errors.map(error =>
-                <li key={error.id}>{error.message}</li>
+                <li key={error.id}>{error}</li>
                 )}
                 </ul>
                 <label>

@@ -1,0 +1,49 @@
+.logModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: space-evenly;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.logModalContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-content{
+    height: 0%;
+    display: flex;
+    align-items: center;
+    /* margin: 20px 0; */
+    width: 30%;
+    justify-content: center;
+    border-radius: 2px;
+}
+
+input.input {
+    display: block;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    padding: 10px 0;
+    font-size: 18px;
+    text-indent: 5px;
+}
+
+button.button {
+    display: block;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fffdfc;
+    border-radius: 3px;
+    border: none;
+}

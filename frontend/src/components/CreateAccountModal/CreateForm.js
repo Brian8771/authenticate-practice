@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useDispatch} from 'react-redux';
 
 import * as sessionActions from '../../store/session';
-// import './SignupForm.css';
+import './CreateForm.css';
 
 function Create() {
     const dispatch = useDispatch();
@@ -33,68 +33,72 @@ function Create() {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div className='logModalContainer'>
+        <form onSubmit={handleSubmit} className='logModal'>
+            <h2  style={{display: 'flex', justifyContent: 'center', alignItems: 'end'}}>Create Account</h2>
             <ul>
                 {errors.map((error, id) =>
                 <li key={id}>{error}</li>
                 )}
             </ul>
-            <label>
-                Email
                 <input
+                placeholder='Email'
+                className='input'
                 type='text'
                 name='email'
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 />
-            </label>
-            <label>
-                Username
+                <br/>
                 <input
+                placeholder='Username'
+                className='input'
                 type='text'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 />
-            </label>
-            <label>
-                First Name
+                <br/>
                 <input
+                placeholder='First Name'
+                className='input'
                 type='text'
                 name='firstName'
                 value={firstName}
                 onChange={e => setFirstname(e.target.value)}
                 />
-            </label>
-            <label>
-                Last Name
+                <br/>
                 <input
+                placeholder='Last Name'
+                className='input'
                 name='lastName'
                 type='text'
                 value={lastName}
                 onChange={e => setLastname(e.target.value)}
                 />
-            </label>
-            <label>
-                Password
+                <br/>
                 <input
+                placeholder='Password'
+                className='input'
                 type='password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 />
-            </label>
-            <label>
-                Confirm Password
+                <br/>
                 <input
+                placeholder='Confirm Password'
+                className='input'
                 type='password'
                 value={confirmPassword}
                 onChange={e => setConfirmPassword(e.target.value)}
                 required
                 />
-            </label>
-            <button type='submit'>Sign Up</button>
+                <br/>
+            <button className='button' style={{backgroundColor: '#ff5500'}} type='submit'>Sign Up</button>
+                <br/>
         </form>
+        </div>
     )
 }
 
