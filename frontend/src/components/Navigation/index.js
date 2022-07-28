@@ -68,13 +68,13 @@ function Navigation({isLoaded}) {
                 <img style={{height: '25px', width: '100px'}} src='https://a-v2.sndcdn.com/assets/images/wordmark@2x-8fdb346f.png' alt='soundCloud'/>
             </div>
             <div className='divForLi'>
-            <li className='liNav' style={{listStyle: 'none'}}>
-                <NavLink style={{color: '#CCCCCC',textDecoration: 'none', fontSize: '14px', fontFamily: 'Interstate,Lucida Grande,Arial,sans-serif'}} className='navLinks' exact to='/'>Home</NavLink>
+            <li className='liNav' >
+                <NavLink className='navLinks' exact to='/'>Home</NavLink>
             </li>
             </div>
             <div className='divForLi'>
-            <li className='liNav' style={{listStyle: 'none'}}>
-              <NavLink to='/songs/user' style={{color: '#CCCCCC',textDecoration: 'none', fontSize: '14px', fontFamily: 'Interstate,Lucida Grande,Arial,sans-serif'}} className='navLinks'>My Songs</NavLink>
+            <li className='liNav' >
+              <NavLink to='/songs/user' className='navLinks'>My Songs</NavLink>
             </li>
             </div>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -91,8 +91,8 @@ function Navigation({isLoaded}) {
             </div>
                 {isLoaded && sessionLinks}
             <div className='divForLi'>
-            <li className='liNav' style={{listStyle: 'none'}}>
-                <NavLink style={{color: '#CCCCCC',textDecoration: 'none', fontSize: '14px', fontFamily: 'Interstate,Lucida Grande,Arial,sans-serif'}} className='navLinks' to='/songs/create'>Upload</NavLink>
+            <li className='liNav' >
+                <NavLink className='navLinks' to='/songs/create'>Upload</NavLink>
             </li>
 
             </div>
