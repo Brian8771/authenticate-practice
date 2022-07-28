@@ -1,0 +1,25 @@
+input.inputEdit{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 59%;
+    padding: 10px 5px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: solid black 1px;
+}
+
+.labelEdit{
+    display: inline-flex;
+    width: 60%;
+    font-size: 20px;
+}
+
+.editSongButton {
+    width: 50%;
+    padding: 10px 5px;
+    color: #ffffff;
+    background-color: #ff5500;
+    border: none;
+    border-radius: 5px;
+}

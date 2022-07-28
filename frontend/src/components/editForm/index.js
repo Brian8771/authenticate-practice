@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as songActions from '../../store/Songs';
+import './edit.css'
 
 
 function EditSong({song, songId, setEdit}) {
@@ -19,50 +20,56 @@ function EditSong({song, songId, setEdit}) {
             url,
             previewImage,
         }
-        let editedSong = await dispatch(songActions.editSong(songId, song));
+        await dispatch(songActions.editSong(songId, song));
         await setEdit(false);
     }
 
     return (
-        <div style={{display:'flex',justifyContent: 'center', alignItems: 'Center', height: '50em', margin: 'auto'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '35em', width: '100%', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '20px'}}>
+        <div style={{backgroundColor: 'white', width: '80%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', width: '100%', height: '100%', justifyContent: 'start', alignItems: 'center'}}>
+            <h2 style={{display: 'flex', justifyContent: 'center', alignItems: 'start'}}>Edit Song</h2>
 
-        <section >
-        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', width: '50em'}}>
-            <label style={{display: 'flex', justifyContent: 'center'}}>Title:
+            <label className='labelEdit'>Title:
+            </label>
                 <input
+                className='inputEdit'
                 name='title'
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type='text'
                 />
+            <label className='labelEdit'>Description:
             </label>
-            <label>Description:
                 <input
+                className='inputEdit'
                 name='description'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 type='text'
                 />
+            <label className='labelEdit'>Url:
             </label>
-            <label>Url:
                 <input
+                className='inputEdit'
                 name='url'
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 type='text'
                 />
+            <label className='labelEdit'>ImageUrl:
             </label>
-            <label>ImageUrl:
                 <input
+                className='inputEdit'
                 name='imageUrl'
                 value={previewImage}
                 onChange={(e) => setPreviewImage(e.target.value)}
                 type='text'
                 />
-            </label>
-            <button type='submit'>Upload</button>
+            <button className='editSongButton' type='submit'>Upload</button>
+
         </form>
-        </section>
+        </div>
         </div>
     )
 }

@@ -9,6 +9,7 @@ function CreateSong() {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [errors, setErrors] = useState('');
     const [url, setUrl] = useState('')
     const [imageUrl, setImageUrl] = useState('');
     let [albumId, setAlbumId] = useState('');
@@ -23,7 +24,16 @@ function CreateSong() {
             imageUrl,
             albumId
         }
-        let createdSong = await dispatch(songActions.createSongs(song));
+        let createdSong = await dispatch(songActions.createSongs(song)).catch(async (res) => {
+            const data = await res.json();
+            console.log(data);
+            if (data.message)
+            if (data.message === 'Validation Error') {
+
+                setErrors(data.errors);
+            }
+            else setErrors([data.message]);
+        });
         if (createdSong){
             history.push(`/songs/${createdSong.id}`);
         }
@@ -35,8 +45,12 @@ function CreateSong() {
 
         <section >
         <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column',width: '50em', alignItems: 'center'}}>
-
             <h1 style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Upload Song</h1>
+                <ul>
+                {errors && errors.map(error =>
+                <li key={error}>{error}</li>
+                )}
+                </ul>
                 <input
                 placeholder='Title:'
                 className='input inputs'
@@ -77,7 +91,7 @@ function CreateSong() {
                 onChange={(e) => setAlbumId(e.target.value)}
                 type='number'
                 />
-            <button style={{backgroundColor:'#ff5500'}} className='button' type='submit'>Upload</button>
+            <button  style={{backgroundColor:'#ff5500'}} className='button' type='submit'>Upload</button>
         </form>
         </section>
         </div>

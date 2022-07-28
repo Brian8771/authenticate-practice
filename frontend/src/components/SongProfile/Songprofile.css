@@ -10,6 +10,7 @@
 }
 
 .commentBorder {
+    text-indent: 70px;
     height: 70%;
     overflow-x: auto;
     list-style: none;
@@ -86,7 +87,7 @@
 .commentInput {
     display: flex;
     width: 80%;
-    margin: auto;
+    margin: 20px auto 0 auto;
     padding: 5px 0;
     text-indent: 10px;
     font-size: 12px;

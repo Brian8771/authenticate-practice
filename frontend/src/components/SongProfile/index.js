@@ -84,7 +84,6 @@ function SongProfile() {
             {editButton}
             </div>
             <div className='commentsDiv'>
-                <h3>Comments: {comment.length ? comment.length : 0}</h3>
                 <form onSubmit={handleSubmit}>
                 <ul>
                 {errors && errors.map(error =>
@@ -101,6 +100,7 @@ function SongProfile() {
                 </label>
                 <button style={{display:'none'}} type='submit'>Submit</button>
                 </form>
+                    <h3 style={{display: 'flex', paddingLeft: '110px'}}>{comment.length ? comment.length : 0} comments</h3>
                 <ul className='commentBorder'>
                 {comment && comment.map(({id, body, userId}) => (
 
