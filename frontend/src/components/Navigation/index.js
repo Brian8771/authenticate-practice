@@ -1,29 +1,36 @@
 import React, {useState} from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ProfileButton from './ProfileButton'
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import CreateAccountFormModal from '../CreateAccountModal';
+import * as songActions from '../../store/Songs';
 
 
 function Navigation({isLoaded}) {
     const sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    const songs = Object.values(useSelector(state => state.songDetail.songs));
+    const findSong = Object.values(useSelector(state => state.songDetail.songs));
     const [search, setSearch] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
-        for (let song of songs) {
+        for (let song of findSong) {
             if (song.title === search) {
                 setSearch('');
-                return history.push(`/songs/${song.id}`)
+                await dispatch(songActions.getSongs())
+                await history.push('/')
+                return await history.push(`/songs/${song.id}`)
+
             }
         }
+        return alert('No search result found')
     }
+
 
     let sessionLinks;
 
