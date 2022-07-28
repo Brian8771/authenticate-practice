@@ -18,7 +18,10 @@ function Navigation({isLoaded}) {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-
+        if (search.toLowerCase() === 'create song') {
+            setSearch('');
+            return history.push('/songs/create');
+        }
         for (let song of findSong) {
             if (song.title === search) {
                 setSearch('');
