@@ -150,10 +150,11 @@ router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], a
 
     if (album.userId !== id) {
         res.status(403);
-        res.json({
+        return res.json({
             message: 'Forbidden',
             statusCode: 403
         });
+
     }
 
     const newSong = await Song.create({

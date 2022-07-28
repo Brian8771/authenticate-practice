@@ -24,10 +24,9 @@ function CreateSong() {
             imageUrl,
             albumId
         }
+
         let createdSong = await dispatch(songActions.createSongs(song)).catch(async (res) => {
             const data = await res.json();
-            console.log(data);
-            if (data.message)
             if (data.message === 'Validation Error') {
 
                 setErrors(data.errors);
