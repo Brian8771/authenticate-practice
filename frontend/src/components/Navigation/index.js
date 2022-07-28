@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, {useState} from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import ProfileButton from './ProfileButton'
 import LoginFormModal from '../LoginFormModal';
@@ -9,8 +9,24 @@ import CreateAccountFormModal from '../CreateAccountModal';
 
 function Navigation({isLoaded}) {
     const sessionUser = useSelector(state => state.session.user);
+    const history = useHistory();
+
+    const songs = Object.values(useSelector(state => state.songDetail.songs));
+    const [search, setSearch] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        for (let song of songs) {
+            if (song.title === search) {
+                setSearch('');
+                return history.push(`/songs/${song.id}`)
+            }
+        }
+    }
 
     let sessionLinks;
+
 
     if (sessionUser) {
         sessionLinks =
@@ -53,6 +69,18 @@ function Navigation({isLoaded}) {
             <li className='liNav' style={{listStyle: 'none'}}>
               <NavLink to='/songs/user' style={{color: '#CCCCCC',textDecoration: 'none', fontSize: '14px', fontFamily: 'Interstate,Lucida Grande,Arial,sans-serif'}} className='navLinks'>My Songs</NavLink>
             </li>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <form className='searchForm' onSubmit={handleSubmit}>
+                    <input
+                    placeholder='Search for song by name'
+                    className='searchInput'
+                    name='searchBar'
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <button className='searchButton' type='submit'>Submit</button>
+                </form>
             </div>
                 {isLoaded && sessionLinks}
             <div className='divForLi'>

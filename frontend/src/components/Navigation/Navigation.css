@@ -7,7 +7,7 @@
 
 .navLinks {
     display: inline;
-    padding: 5.1% 12px;
+    padding: 8px 20px;
     justify-content: center;
     align-items: center;
     /* width: 20%; */
@@ -27,4 +27,22 @@
 
     border-left: black solid .75px;
     border-right: black solid .75px;
+}
+
+.searchButton {
+    display: none;
+}
+
+.searchInput {
+    display: flex;
+    text-align:left;
+    padding: 5px 0;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+}
+
+.searchForm {
+    width: 300px;
 }
