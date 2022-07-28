@@ -41,17 +41,19 @@
     color: white;
     padding: 5px 5px;
     font-size: 20px;
+    margin: 16px 0 0 0;
     font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
 }
 
 .artist {
     position: absolute;
-    top: 80px;
+    top: 100px;
     left: 200px;
     padding: 4px 5px;
     background-color: black;
     color: white;
     font-size: 100%;
+    margin: 0;
 }
 
 .editButton{
