@@ -16,6 +16,7 @@
     align-items: center;
     gap: 20px;
     padding: 0;
+    height: 100%;
 }
 
 .header {

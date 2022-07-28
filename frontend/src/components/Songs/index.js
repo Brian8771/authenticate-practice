@@ -18,8 +18,8 @@ function Songs() {
     , [dispatch, songs])
     // style={{ backgroundColor: 'white', display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '80%', flexFlow: 'row wrap', listStyleType: 'none', margin: 0,}}
     return (
-       <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100%', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
-        <h2 className='header' style={{backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0'}}>Songs</h2>
+       <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
+        <h2 className='header' style={{backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0', height: '20vh'}}>Songs</h2>
         <ul className='grid' >
         {isLoaded && songs &&
         songs.map(song =>

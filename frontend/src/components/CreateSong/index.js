@@ -39,8 +39,8 @@ function CreateSong() {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100%', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
-        <div style={{display:'flex',justifyContent: 'center', alignItems: 'Center', height: '50em', margin: 'auto', backgroundColor: 'white', width: '80%'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
+        <div style={{display:'flex',justifyContent: 'center', alignItems: 'Center', height: '100vh', margin: 'auto', backgroundColor: 'white', width: '80%'}}>
 
         <section >
         <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column',width: '50em', alignItems: 'center'}}>

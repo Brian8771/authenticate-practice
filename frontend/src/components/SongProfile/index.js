@@ -69,7 +69,7 @@ function SongProfile() {
             if (isLoaded) {
 
                 content =
-            <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100%', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
+            <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
             <div style={{backgroundColor: 'white', width: '80%', height: '100%'}}>
             <div className='SongDiv'>
             <img className='img'  src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs.description} />

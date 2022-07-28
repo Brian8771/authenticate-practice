@@ -25,9 +25,9 @@ function EditSong({song, songId, setEdit}) {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '35em', width: '100%', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '20px'}}>
-        <div style={{backgroundColor: 'white', width: '80%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', width: '100%', height: '100%', justifyContent: 'start', alignItems: 'center'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '20px'}}>
+        <div style={{backgroundColor: 'white', width: '80%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', width: '100%', height: '100vh', justifyContent: 'start', alignItems: 'center'}}>
             <h2 style={{display: 'flex', justifyContent: 'center', alignItems: 'start'}}>Edit Song</h2>
 
             <label className='labelEdit'>Title:
