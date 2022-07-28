@@ -1,0 +1,19 @@
+
+
+
+
+
+
+button.loginButton {
+    font-size: 14px;
+    background-color: #333333;
+    border: solid .5px #4c4c4c;
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+
+
+button.loginButton:hover {
+    border: solid .5px white;
+}

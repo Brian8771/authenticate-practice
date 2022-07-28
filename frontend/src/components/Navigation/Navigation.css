@@ -16,7 +16,7 @@
 .liNav {
     display: flex;
     list-style: list-item;
-    padding: 6px 0;
+    padding: 6px 3px;
     justify-content: center;
     align-items: center;
     margin: 0 5px;
@@ -24,7 +24,7 @@
 }
 
 .divForLi {
-
+    display: flex;
     border-left: black solid .75px;
     border-right: black solid .75px;
 }
