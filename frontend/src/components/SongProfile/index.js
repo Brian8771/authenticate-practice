@@ -70,7 +70,7 @@ function SongProfile() {
 
                 content =
             <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
-            <div style={{backgroundColor: 'white', width: '80%', height: '100%'}}>
+            <div style={{backgroundColor: 'white', width: '80%', height: '100vh'}}>
             <div className='SongDiv'>
             <img className='img'  src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs.description} />
             <h2 className='title'>{songs[songId].songs.title}</h2>
@@ -108,11 +108,11 @@ function SongProfile() {
                 ))}
                 </ul>
             </div>
-            </div>
-            <div style={{display: 'flex', justifyContent: 'center',backgroundColor: 'white', width: '80%'}}>
-                <div  style={{position: 'relative', bottom:'1px',display:'flex', justifyContent: 'center',backgroundColor: 'white', width: '80%', borderTop: '1px solid #f2f2f2'}}>
+            {/* <div style={{display: 'flex', justifyContent: 'center',backgroundColor: 'white', width: '80%', position: 'relative', left: '130px'}}>
+                <div  style={{textIndent: '70px',position: 'relative', bottom:'1px',display:'flex', justifyContent: 'center',backgroundColor: 'white', width: '100%', borderTop: '1px solid #f2f2f2'}}>
                     <img style={{position: 'relative', bottom: '8px'}} cl src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAOCAAAAAB4YAGaAAAAtElEQVR4AY3RT+uCMADG8d7/O3gKifLQQTpoHbp0+RlFET+LKDP6R5Ag08ogvKhrRIlbq/w+bKfPaSvRgklg4rQURV+mP6GGR3r0HZoUeMr0M0zaMSK8WkthnBj0dC2HOGSwaVrRGySdEOeqix1myKWGIlyoHmxM2QbI1xXhCFsM0WPnj4MNEU5wxD/GsNDnoCFCp0Zgs60w5+BehDfnAhceAvj1TFW0jewdfRpQwu7Cfy3vDqsH6oJzha+DAAAAAElFTkSuQmCC' alt='soundCloudLogo' />
                     </div>
+            </div> */}
             </div>
         </div>
             }
