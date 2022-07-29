@@ -83,7 +83,7 @@ function Navigation({isLoaded}) {
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <form className='searchForm' onSubmit={handleSubmit}>
                     <input
-                    autoComplete='off'
+                    autocomplete='off'
                     placeholder='Search for song by name'
                     className='searchInput'
                     name='searchBar'
