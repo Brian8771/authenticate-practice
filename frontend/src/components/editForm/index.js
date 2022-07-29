@@ -13,6 +13,7 @@ function EditSong({song, songId, setEdit}) {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        console.log(previewImage);
         const song = {
 
             title,
@@ -63,8 +64,9 @@ function EditSong({song, songId, setEdit}) {
                 className='inputEdit'
                 name='imageUrl'
                 value={previewImage}
-                onChange={(e) => setPreviewImage(e.target.value)}
+                onChange={(e) => setPreviewImage(e.target.value === '' ? '' : e.target.value)}
                 type='text'
+
                 />
             <button className='editSongButton' type='submit'>Upload</button>
 

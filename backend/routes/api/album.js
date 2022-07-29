@@ -157,6 +157,14 @@ router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], a
 
     }
 
+    if (!imageUrl.endsWith('.jpg')) {
+        res.status(403);
+        return res.json({
+            message: 'Image Url has to end with .jpg',
+            statusCode: 403
+        })
+    }
+
     const newSong = await Song.create({
         userId: id,
         albumId: req.params.albumId,

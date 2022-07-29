@@ -34,8 +34,11 @@ function UserSongs() {
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <li className='gridChildren' key={song.id}>
                 <Link to={`/songs/${song.id}`}>
-
-                <img style={{height: '10em', width: '10em'}} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={song.description} />
+                {
+                    song.previewImage.endsWith('.jpg') ?
+                    <img style={{height: '10em', width: '10em'}} src={song.previewImage} alt={song.description}/> :
+                    <img style={{height: '10em', width: '10em'}} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={song.description} />
+                }
                 </Link>
                 <br/>
                 <div style={{fontWeight: 550, fontSize: '14px'}}>

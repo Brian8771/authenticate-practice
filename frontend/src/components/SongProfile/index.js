@@ -72,7 +72,11 @@ function SongProfile() {
             <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
             <div style={{backgroundColor: 'white', width: '80%', height: '100vh'}}>
             <div className='SongDiv'>
-            <img className='img'  src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs.description} />
+            {
+                    songs[songId].songs.previewImage.endsWith('.jpg') ?
+                    <img className='img' src={songs[songId].songs.previewImage} alt={songs[songId].songs.description}/> :
+                    <img className='img' src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs[songId].songs.description} />
+                }
             <h2 className='title'>{songs[songId].songs.title}</h2>
             {/* <h3>{songs[songId].songs.description}</h3> */}
             <h3 className='artist'>{songs[songId].artist.username}</h3>

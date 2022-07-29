@@ -95,7 +95,7 @@ export const editSong = (songId, songToEdit) => async (dispatch) => {
     });
     const song = await response.json();
     dispatch(editedSong(song));
-    return response;
+    return song;
 }
 
 export const deleteSong = (songId) => async(dispatch) => {
