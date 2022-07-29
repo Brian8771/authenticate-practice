@@ -57,6 +57,7 @@ function CreateSong() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type='text'
+                required={true}
                 />
                 <input
                 placeholder='Description:'
@@ -73,6 +74,7 @@ function CreateSong() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 type='text'
+                required={true}
                 />
                 <input
                 placeholder='Image Url'
@@ -81,6 +83,7 @@ function CreateSong() {
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
                 type='text'
+                required={true}
                 />
                 <input
                 placeholder='Album Number'

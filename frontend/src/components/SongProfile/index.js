@@ -100,6 +100,7 @@ function SongProfile() {
                     placeholder='Write a comment'
                     value={body}
                     onChange={e => setBody(e.target.value)}
+                    required={true}
                     />
                 </label>
                 <button style={{display:'none'}} type='submit'>Submit</button>

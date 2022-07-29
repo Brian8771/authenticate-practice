@@ -39,6 +39,7 @@ function EditSong({song, songId, setEdit}) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type='text'
+                required={true}
                 />
             <label className='labelEdit'>Description:
             </label>
@@ -57,6 +58,7 @@ function EditSong({song, songId, setEdit}) {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 type='text'
+                required={true}
                 />
             <label className='labelEdit'>ImageUrl:
             </label>
@@ -66,7 +68,7 @@ function EditSong({song, songId, setEdit}) {
                 value={previewImage}
                 onChange={(e) => setPreviewImage(e.target.value === '' ? '' : e.target.value)}
                 type='text'
-
+                required={true}
                 />
             <button className='editSongButton' type='submit'>Upload</button>
 
