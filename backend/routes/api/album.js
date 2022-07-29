@@ -137,24 +137,31 @@ router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], a
 
     const {title, description, url, imageUrl} = req.body;
 
-    const album = await Album.findOne({where: {id: req.params.albumId}})
+    // const album = await Album.findOne({where: {id: req.params.albumId}})
 
 
-    if (!album) {
-        res.status(404);
-        res.json({
-            message: "Album couldn't be found",
-            statusCode: 404
-        });
-    }
+    // if (!album) {
+    //     res.status(404);
+    //     res.json({
+    //         message: "Album couldn't be found",
+    //         statusCode: 404
+    //     });
+    // }
 
-    if (album.userId !== id) {
+    // if (album.userId !== id) {
+    //     res.status(403);
+    //     return res.json({
+    //         message: 'Forbidden',
+    //         statusCode: 403
+    //     });
+
+    // }
+    if (!url.endsWith('.wav')) {
         res.status(403);
         return res.json({
-            message: 'Forbidden',
+            message: 'Url has to end with .wav',
             statusCode: 403
-        });
-
+        })
     }
 
     if (!imageUrl.endsWith('.jpg')) {
@@ -164,6 +171,7 @@ router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], a
             statusCode: 403
         })
     }
+
 
     const newSong = await Song.create({
         userId: id,

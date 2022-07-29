@@ -82,7 +82,7 @@ function SongProfile() {
             <h3 className='artist'>{songs[songId].artist.username}</h3>
             {/* <button onClick={() => history.push('/')}>Back</button> */}
             <audio className='audioPlayer' controls>
-            <source src='https://beardbarnmusicbucket.s3.amazonaws.com/The+Wild+Horse' type="audio/ogg" />
+            <source src={songs[songId].songs.url} type="audio/ogg" />
             </audio>
             {deleteButton}
             {editButton}

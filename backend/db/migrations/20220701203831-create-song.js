@@ -15,8 +15,9 @@ module.exports = {
       },
       albumId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Albums'},
-        onDelete: 'CASCADE'
+        // references: {model: 'Albums'},
+        onDelete: 'CASCADE',
+        defaultValue: null
       },
       title: {
         type: Sequelize.STRING,
