@@ -30,9 +30,9 @@ function EditSong({song, songId, setEdit}) {
         const newErrors = []
 
         if (url && !url.endsWith('.wav')) newErrors.push('Song must end with .wav');
-
+        if (previewImage && !previewImage.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
         setErrors(newErrors)
-    }, [url])
+    }, [url, previewImage])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '20px'}}>

@@ -42,9 +42,9 @@ function CreateSong() {
         const newErrors = []
 
         if (url && !url.endsWith('.wav')) newErrors.push('Song must end with .wav');
-
+        if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
         setErrors(newErrors)
-    }, [url])
+    }, [url, imageUrl])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
@@ -91,7 +91,7 @@ function CreateSong() {
                 value={imageUrl}
                 onChange={(e) => setImageUrl(e.target.value)}
                 type='text'
-                required={true}
+                // required={true}
                 />
                 <input
                 placeholder='Album Number'
