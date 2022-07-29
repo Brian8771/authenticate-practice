@@ -81,8 +81,7 @@ router.get('/current',[requireAuth, restoreUser], async(req, res) => {
     const songs = await Song.findAll({
         where: {userId: id}
     });
-
-    res.json(songs);
+    res.json({songs});
 })
 
 router.get('/:songId/comments', async(req, res) => {
@@ -112,6 +111,13 @@ router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async
         res.json({
             message: "Song couldn't be found",
             statusCode: 404
+        })
+    }
+
+    if (body.length > 130) {
+        res.status(403);
+        return res.json({
+            message: "Comment can't be more than 130 characters"
         })
     }
     const comments = await Comment.findAll({where: {body:body, userId:id}});

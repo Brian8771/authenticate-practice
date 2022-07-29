@@ -103,8 +103,9 @@ function SongProfile() {
                     <h3 style={{display: 'flex', paddingLeft: '110px'}}>{comment.length ? comment.length : 0} comments</h3>
                 <ul className='commentBorder'>
                 {comment && comment.map(({id, body, userId}) => (
-
-                   <li className='liEle' key={id}>{body} {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => dispatch(deleteCommentButton(id, songId))} >X</button> : ''}</li>
+                    <div style={{display: 'flex', width: '87%', alignContent: 'start'}}>
+                        <li className='liEle' style={{display: 'inline-flex'}} key={id}>{body} {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => dispatch(deleteCommentButton(id, songId))} >X</button> : ''}</li>
+                    </div>
                 ))}
                 </ul>
             </div>

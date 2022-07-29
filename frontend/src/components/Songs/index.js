@@ -8,11 +8,9 @@ function Songs() {
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
 
-
     const songs = Object.values(useSelector(state => state.songDetail.songs));
-
     useEffect(() =>{
-        dispatch(songActions.getSongs()).then(() =>
+        dispatch(songActions.getSongs()).then(dispatch(songActions.getSongsByUser())).then(() =>
         setIsLoaded(true))
     }
     , [dispatch, songs])
