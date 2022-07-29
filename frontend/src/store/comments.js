@@ -48,7 +48,7 @@ export const deleteComments = (songId) => async dispatch => {
 
     const comment = await response.json();
     dispatch(deleteComment(songId));
-    return comment;
+    return response;
 }
 
 const initialState = {comments: {}}
