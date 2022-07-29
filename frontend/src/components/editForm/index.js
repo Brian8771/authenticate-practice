@@ -52,7 +52,6 @@ function EditSong({song, songId, setEdit}) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type='text'
-                required={true}
                 />
             <label className='labelEdit'>Description:
             </label>
