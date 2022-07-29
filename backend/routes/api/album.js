@@ -156,7 +156,7 @@ router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], a
     //     });
 
     // }
-    if (!url.endsWith('.wav')) {
+    if (url && !url.endsWith('.wav')) {
         res.status(403);
         return res.json({
             message: 'Url has to end with .wav',
