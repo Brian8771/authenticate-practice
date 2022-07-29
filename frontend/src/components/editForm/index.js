@@ -52,6 +52,7 @@ function EditSong({song, songId, setEdit}) {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 type='text'
+                required={true}
                 />
             <label className='labelEdit'>Description:
             </label>
@@ -80,7 +81,6 @@ function EditSong({song, songId, setEdit}) {
                 value={previewImage}
                 onChange={(e) => setPreviewImage(e.target.value === '' ? '' : e.target.value)}
                 type='text'
-                required={true}
                 />
             <button disabled={errors.length > 0 ? true : false} className='editSongButton' type='submit'>Upload</button>
 
