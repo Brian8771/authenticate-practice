@@ -101,6 +101,7 @@ function SongProfile() {
                     value={body}
                     onChange={e => setBody(e.target.value)}
                     required={true}
+
                     />
                 </label>
                 <button style={{display:'none'}} type='submit'>Submit</button>
@@ -130,6 +131,8 @@ function SongProfile() {
         setIsLoaded(true))
 
     }, [dispatch, songId, editSong])
+
+
 
     // useEffect(() => {
     //     const newErrors = []

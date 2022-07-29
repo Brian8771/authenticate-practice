@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as songActions from '../../store/Songs';
@@ -9,7 +9,7 @@ function CreateSong() {
     const dispatch = useDispatch();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [errors, setErrors] = useState('');
+    const [errors, setErrors] = useState([]);
     const [url, setUrl] = useState('')
     const [imageUrl, setImageUrl] = useState('');
     let [albumId, setAlbumId] = useState('');
@@ -37,6 +37,14 @@ function CreateSong() {
             history.push(`/songs/${createdSong.id}`);
         }
     }
+
+    useEffect(() => {
+        const newErrors = []
+
+        if (url && !url.endsWith('.wav')) newErrors.push('Song must end with .wav');
+
+        setErrors(newErrors)
+    }, [url])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
@@ -93,7 +101,7 @@ function CreateSong() {
                 onChange={(e) => setAlbumId(e.target.value)}
                 type='number'
                 />
-            <button  style={{backgroundColor:'#ff5500'}} className='button' type='submit'>Upload</button>
+            <button  disabled={errors.length > 0 ? true : false} style={{backgroundColor:'#ff5500'}} className='button' type='submit'>Upload</button>
         </form>
         </section>
         </div>
