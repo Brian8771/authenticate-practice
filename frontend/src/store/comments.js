@@ -28,7 +28,7 @@ export const getCommentsById = (songId) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${songId}/comments`);
     const comments = await response.json();
     dispatch(commentById(comments));
-    return response;
+    return comments;
 }
 
 export const createComments = (songId, body) => async dispatch => {
