@@ -47,25 +47,25 @@ export const deleteComments = (songId) => async dispatch => {
     });
 
     const comment = await response.json();
-    await dispatch(deleteComment(songId));
+    dispatch(deleteComment(songId));
     return comment;
 }
 
 const initialState = {comments: {}}
 
 const commentsReducer = (state = initialState, action) => {
-    let newState = {};
+    let newState = {comments: {}};
     switch(action.type){
         case(GET_COMMENTS):
-        action.comments.comments.forEach(comment => {
-            newState[comment.id] = comment;
+        action.comments.forEach(comment => {
+            newState.comments[comment.id] = comment;
         })
         return newState;
         case(CREATE_COMMENT):
-        newState[action.comment.id] = action.comment;
+        newState.comments[action.comment.id] = action.comment;
         return newState;
         case(DELETE_COMMENT):
-        delete newState[action.commentId];
+        delete newState.comments[action.commentId];
         return newState;
         default:
         return state;

@@ -98,7 +98,7 @@ router.get('/:songId/comments', async(req, res) => {
             statusCode: 404
         })
     }
-    res.json({comments});
+    res.json(comments);
 })
 
 router.post('/:songId/comments', [requireAuth, restoreUser, validateBody] ,async(req, res) => {
@@ -188,6 +188,8 @@ router.put('/:id', [requireAuth, restoreUser, validateSongAndBody], async(req, r
             statusCode: 403
         });
     }
+
+
     if (title) song.update({title: title})
     if (description) song.update({description: description});
     if (url) song.update({url: url});

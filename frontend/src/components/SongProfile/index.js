@@ -17,8 +17,7 @@ function SongProfile() {
     const [editSong, setEditSong] = useState(false);
     const songs = useSelector(state => state.songDetail.currentSong);
     const user = useSelector(state => state.session.user);
-    let comment = Object.values(useSelector(state => state.comments));
-
+    let comment = Object.values(useSelector(state => state.comments.comments));
 
     const deleteSong = async () => {
         await dispatch(songActions.deleteSong(songId));
@@ -110,7 +109,8 @@ function SongProfile() {
                 <ul className='commentBorder'>
                 {comment && comment.map(({id, body, userId}) => (
                     <div style={{display: 'flex', width: '87%', alignContent: 'start'}}>
-                        <li className='liEle' style={{display: 'inline-flex'}} key={id}>{body} {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => dispatch(deleteCommentButton(id, songId))} >X</button> : ''}</li>
+                        {console.log(comment)}
+                        <li className='liEle' style={{display: 'inline-flex'}} key={id}>{body} {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => deleteCommentButton(id, songId)} >X</button> : ''}</li>
                     </div>
                 ))}
                 </ul>
