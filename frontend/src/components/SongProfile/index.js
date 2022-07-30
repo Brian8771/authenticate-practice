@@ -30,7 +30,6 @@ function SongProfile() {
         e.preventDefault();
         const newComment = await dispatch(commentActions.createComments(songId, body)).catch(async (res) => {
             const data = await res.json();
-            console.log(data);
             if (data.message)
             if (data.message === 'Validation Error') {
 
@@ -109,7 +108,6 @@ function SongProfile() {
                 <ul className='commentBorder'>
                 {comment && comment.map(({id, body, userId}) => (
                     <div style={{display: 'flex', width: '87%', alignContent: 'start'}}>
-                        {console.log(comment)}
                         <li className='liEle' style={{display: 'inline-flex'}} key={id}>{body} {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => deleteCommentButton(id, songId)} >X</button> : ''}</li>
                     </div>
                 ))}

@@ -14,7 +14,6 @@ function EditSong({song, songId, setEdit}) {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(previewImage);
         const song = {
 
             title,
