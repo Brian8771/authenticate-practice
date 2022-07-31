@@ -22,6 +22,7 @@ function EditSong({song, songId, setEdit}) {
             previewImage,
         }
         await dispatch(songActions.editSong(songId, song));
+        await dispatch(songActions.getSongByIdNum(songId));
         await setEdit(false);
     }
 
