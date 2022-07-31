@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as songActions from '../../store/Songs';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './mysongs.css';
 
 
 function UserSongs() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const [isLoaded, setIsLoaded] = useState(false);
 
 
     const songs = Object.values(useSelector(state => state.songDetail.userSongs));
     const user = useSelector(state => state.session.user);
 
-    if (user === null) {
-        history.push('/')
-        alert('Must be logged in to view MySongs');
-    }
+    // if (user === null) {
+    //     history.push('/')
+    //     alert('Must be logged in to view MySongs');
+    // }
 
     useEffect(() =>{
         dispatch(songActions.getSongsByUser()).then(() =>
@@ -51,7 +50,7 @@ function UserSongs() {
             </li>
             </div>
             )}
-        {songs.length === 0 && <h1>Sign in to view Songs</h1>}
+        {/* {songs.length === 0 && <h1>Sign in to view Songs</h1>} */}
 
         </ul>
        </div>

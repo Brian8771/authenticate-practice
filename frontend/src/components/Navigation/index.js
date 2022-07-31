@@ -75,11 +75,13 @@ function Navigation({isLoaded}) {
                 <NavLink className='navLinks' exact to='/'>Home</NavLink>
             </li>
             </div>
+            {sessionUser ?
             <div className='divForLi'>
             <li className='liNav' >
               <NavLink to='/songs/user' className='navLinks'>My Songs</NavLink>
             </li>
-            </div>
+            </div> : ''
+            }
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <form className='searchForm' onSubmit={handleSubmit}>
                     <input

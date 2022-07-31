@@ -102,7 +102,7 @@ function SongProfile() {
 
                     />
                 </label>
-                <button style={{display:'none'}} type='submit'>Submit</button>
+                <button disabled={errors.length ? true : false} style={{display:'none'}} type='submit'>Submit</button>
                 </form>
                     <h3 style={{display: 'flex', paddingLeft: '110px'}}>{comment.length ? comment.length : 0} comments</h3>
                 <ul className='commentBorder'>
@@ -129,6 +129,14 @@ function SongProfile() {
         setIsLoaded(true))
 
     }, [dispatch, songId, editSong])
+
+    useEffect(() => {
+        const newErrors = []
+        if (!user && body) {
+            newErrors.push('Have to be signed in to comment');
+        }
+        setErrors(newErrors);
+    }, [body, user])
 
 
 
