@@ -69,7 +69,7 @@ export const getSongsByUser = () => async (dispatch) => {
     const response = await csrfFetch('/api/songs/current');
     const songs = await response.json();
     dispatch(setSongsUser(songs));
-    return response;
+    return songs;
 }
 
 export const createSongs = (createdSong) => async (dispatch) => {
