@@ -28,7 +28,7 @@ function UserSongs() {
        <div  style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
         <h2 className='header' style={{backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0'}}>My Songs:</h2>
         <ul className='grid' >
-        {songs &&
+        {isLoaded && songs &&
         songs.map(song =>
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
             <li className='gridChildren' key={song.id}>
