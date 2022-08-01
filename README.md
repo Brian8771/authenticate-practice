@@ -36,5 +36,5 @@ The CRUD Features that will be implemented are:
 * Technologies Used
     - React
     - Express
-    - JavaScript project
+    - JavaScript
     - Postgres
