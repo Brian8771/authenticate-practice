@@ -2,6 +2,8 @@
 
 Repo is intended to be a clone of SoundClouds website.
 
+Website link is https://soundcloudclone1.herokuapp.com/
+
 The CRUD Features that will be implemented are:
 * Songs -Full CRUD
     - Able to look at all the songs in the homepage
