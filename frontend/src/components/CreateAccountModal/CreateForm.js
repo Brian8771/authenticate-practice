@@ -48,6 +48,7 @@ function Create() {
                 name='email'
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                required
                 />
                 <br/>
                 <input
@@ -66,6 +67,7 @@ function Create() {
                 name='firstName'
                 value={firstName}
                 onChange={e => setFirstname(e.target.value)}
+                required
                 />
                 <br/>
                 <input
@@ -75,6 +77,7 @@ function Create() {
                 type='text'
                 value={lastName}
                 onChange={e => setLastname(e.target.value)}
+                required
                 />
                 <br/>
                 <input
