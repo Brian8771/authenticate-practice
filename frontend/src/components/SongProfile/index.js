@@ -67,25 +67,42 @@ function SongProfile() {
         if (isLoaded) {
 
             content =
-                <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{ backgroundColor: 'white', width: '80%', height: '100vh' }}>
+                <div className='mainDiv'>
+                    <div className='innerMainDiv'>
                         <div className='SongDiv'>
-                            {
-                                songs[songId].songs.previewImage.endsWith('.jpg') ?
-                                    <img className='img' src={songs[songId].songs.previewImage} alt={songs[songId].songs.description} /> :
-                                    <img className='img' src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs[songId].songs.description} />
-                            }
-                            <h2 className='title'>{songs[songId].songs.title}</h2>
-                            {/* <h3>{songs[songId].songs.description}</h3> */}
-                            <NavLink to={`/artists/${songs[songId].artist.id}`}>
-                                <h3 className='artist'>{songs[songId].artist.username}</h3>
-                            </NavLink>
-                            {/* <button onClick={() => history.push('/')}>Back</button> */}
-                            <audio className='audioPlayer' controls>
-                                <source src={songs[songId].songs.url} type="audio/ogg" />
-                            </audio>
-                            {deleteButton}
-                            {editButton}
+                            <div className='songDetailDiv'>
+                                <div className='songDetailsInnerDiv'>
+                                    <div className='audioAndTitleDiv'>
+                                        <div style={{ width: 'auto' }}>
+                                            <h2 className='title'>{songs[songId].songs.title}</h2>
+                                            {/* <h3>{songs[songId].songs.description}</h3> */}
+                                            <NavLink to={`/artists/${songs[songId].artist.id}`}>
+                                                <h3 className='artist'>{songs[songId].artist.username}</h3>
+                                            </NavLink>
+                                        </div>
+                                        <div>
+                                            <audio className='audioPlayer' controls>
+                                                <source src={songs[songId].songs.url} type="audio/ogg" />
+                                            </audio>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <div>
+                                            {
+                                                songs[songId].songs.previewImage.endsWith('.jpg') ?
+                                                    <img className='img' src={songs[songId].songs.previewImage} alt={songs[songId].songs.description} /> :
+                                                    <img className='img' src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs[songId].songs.description} />
+                                            }
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                            {deleteButton}
+                                            {editButton}
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <button onClick={() => history.push('/')}>Back</button> */}
+
+                            </div>
                         </div>
                         <div className='commentsDiv'>
                             <form onSubmit={handleSubmit}>
