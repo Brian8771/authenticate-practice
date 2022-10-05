@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     toSafeObject() {
-      const { id, firstName, lastName, email, username } = this;
-      return { id, firstName, lastName, email, username };
+      const { id, firstName, lastName, email, username, previewImage } = this;
+      return { id, firstName, lastName, email, username, previewImage };
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString())
@@ -102,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     scopes: {
       currentUser: {
-        attributes: { exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'previewImage'] }
+        attributes: { exclude: ["hashedPassword", 'createdAt', 'updatedAt'] }
       },
       loginUser: {
         attributes: {}
@@ -112,7 +112,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       User: {
         attributes: {
-          exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email', 'previewImage']
+          exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email']
         }
       }
     }

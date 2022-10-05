@@ -61,7 +61,7 @@ const UserProfile = () => {
                 </div>
                 <div className={songs.length >= 3 ? "listForDivs" : 'listForDivsShorter'}>
                     {type === 'Songs' && <div>
-                        {songs && songs.map(song => {
+                        {isLoaded && songs && songs.map(song => {
                             return <div className="songDetails">
                                 <div className="specificSongDiv">
                                     <img className="albumSize" src={song.previewImage} alt='Preview Image' />

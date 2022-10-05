@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as songActions from '../../store/Songs';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Songs.css';
 
 
@@ -33,11 +33,11 @@ function Songs() {
                                     }
                                 </Link>
                                 <br />
+                                <NavLink to={`/artists/${song.Artist.id}`} style={{ textDecoration: 'none', display: 'border-box', width: '160px', fontSize: '14px', margin: 0, color: '#c6c6c6' }}>
+                                    {song.Artist.username}
+                                </NavLink>
                                 <div style={{ fontWeight: 550, fontSize: '14px' }}>
                                     {song.title}
-                                </div>
-                                <div style={{ display: 'border-box', height: '30px', width: '160px', fontSize: '12px', margin: 0 }}>
-                                    {song.description}
                                 </div>
                                 <br />
                             </li>

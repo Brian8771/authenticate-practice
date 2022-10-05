@@ -70,7 +70,7 @@ router.get('/', validatePageAndSize, async (req, res) => {
 
     pagination.limit = size
     pagination.offset = size * (page - 1)
-    const songs = await Song.findAll({ where, ...pagination });
+    const songs = await Song.findAll({ where, ...pagination, include: 'Artist' });
 
 
     res.json({ songs, page, size });
