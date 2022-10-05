@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName:{
+      firstName: {
         type: Sequelize.STRING,
       },
       lastName: {
@@ -23,13 +23,16 @@ module.exports = {
         allowNull: false,
 
       },
+      bio: {
+        type: Sequelize.STRING(255),
+      },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,
         allowNull: false
       },
       previewImage: {
         type: Sequelize.STRING,
-        defaultValue: 'No Image'
+        defaultValue: 'https://i1.sndcdn.com/avatars-000166204487-e5k1qe-t500x500.jpg'
       },
       createdAt: {
         allowNull: false,

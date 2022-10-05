@@ -5,11 +5,13 @@
     justify-content: center;
 }
 
+
+
 .navLinks {
     color: #CCCCCC;
     text-decoration: none;
     font-size: 14px;
-    font-family: Interstate,Lucida Grande,Arial,sans-serif;
+    font-family: Interstate, Lucida Grande, Arial, sans-serif;
     display: inline;
     padding: 8px 20px;
     justify-content: center;
@@ -45,21 +47,21 @@
     background-color: #e5e5e5;
     text-indent: 6px;
     display: flex;
-    text-align:left;
+    text-align: left;
     padding: 5px 0;
     width: 100%;
     border-radius: 5px;
     border: none;
-    font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;
+    font-family: Interstate, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Garuda, Verdana, Tahoma, sans-serif;
 }
 
-.searchInput:focus{
+.searchInput:focus {
     background-color: white;
-    border:none;
+    border: none;
     outline: none;
 }
 
-.searchInput:focus::placeholder{
+.searchInput:focus::placeholder {
     color: transparent;
 }
 

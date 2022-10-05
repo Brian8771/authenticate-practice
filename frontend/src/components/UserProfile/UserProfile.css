@@ -1,0 +1,118 @@
+.userProfileHeader {
+    background: linear-gradient(0.25turn, rgba(47, 47, 234, 0.767), white);
+    width: 100%;
+    height: 12em;
+    display: flex;
+    align-items: center;
+}
+
+.artistImage {
+    border-radius: 50%;
+    height: 100%;
+    width: 15%;
+    margin-left: 1rem;
+}
+
+.profileUserContainer {
+    height: 10em;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.artistsHeaderDiv {
+    display: flex;
+    height: 100%;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 25px;
+    flex-direction: column;
+}
+
+.artistHeaderUsername {
+    background-color: black;
+    color: white;
+    width: auto;
+    padding: 1% 2%;
+    font-weight: 400;
+    height: auto;
+    margin: 0;
+    font-size: 24px;
+
+}
+
+.optionsDiv {
+
+    display: flex;
+    flex-direction: row;
+    height: 5%;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    border-bottom: .5px solid #CCCCCC;
+}
+
+.listForDivs {
+    margin-top: 1rem;
+}
+
+.listForDivsShorter {
+    margin-top: 1rem;
+    height: auto;
+}
+
+.firstOptionsButton {
+    font-size: 18px;
+    border-bottom: 2px solid white;
+}
+
+.optionsButton {
+    font-size: 18px;
+    margin-left: 1rem;
+    border-bottom: 2px solid white;
+}
+
+.firstOptionsButton:active,
+.optionsButton:active {
+    border-bottom: 2px solid #ff5501;
+    color: #ff5501;
+}
+
+.activateFirst {
+    font-size: 18px;
+    border-bottom: 2px solid #ff5501;
+    color: #ff5501;
+}
+
+.activate {
+    margin-left: 1rem;
+    font-size: 18px;
+    border-bottom: 2px solid #ff5501;
+    color: #ff5501;
+}
+
+.firstOptionsButton:hover,
+.optionsButton:hover {
+    border-bottom: 2px solid black;
+    cursor: pointer;
+}
+
+
+.albumSize {
+    height: 10em;
+    width: 10em;
+}
+
+.songDetails {
+    display: flex;
+    flex-direction: row;
+    margin-left: 2rem;
+}
+
+.specificSongDiv {
+    margin-bottom: 1rem;
+}
+
+.songDescription {
+    margin-left: 2rem;
+}

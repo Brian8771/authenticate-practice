@@ -1,4 +1,4 @@
-import {csrfFetch} from './csrf';
+import { csrfFetch } from './csrf';
 
 const CREATE_SONG = 'songs/createSong';
 const GET_SONG_BYID = 'songs/getSongById';
@@ -72,8 +72,15 @@ export const getSongsByUser = () => async (dispatch) => {
     return songs;
 }
 
+export const getSongsByUserId = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/songs/artist/${id}`);
+    const songs = await response.json();
+    dispatch(setSongsUser(songs));
+    return songs;
+}
+
 export const createSongs = (createdSong) => async (dispatch) => {
-    const {title, description, url, imageUrl, albumId} = createdSong;
+    const { title, description, url, imageUrl, albumId } = createdSong;
     const response = await csrfFetch(`/api/albums/${albumId}/songs`, {
         method: 'POST',
         body: JSON.stringify({
@@ -98,7 +105,7 @@ export const editSong = (songId, songToEdit) => async (dispatch) => {
     return song;
 }
 
-export const deleteSong = (songId) => async(dispatch) => {
+export const deleteSong = (songId) => async (dispatch) => {
     const response = await csrfFetch(`/api/songs/${songId}`, {
         method: 'DELETE'
     });
@@ -108,39 +115,39 @@ export const deleteSong = (songId) => async(dispatch) => {
     return song;
 }
 
-const initialState = {songs: {}, userSongs:{}, currentSong:{}};
+const initialState = { songs: {}, userSongs: {}, currentSong: {} };
 
 const songsReducer = (state = initialState, action) => {
 
-    let newState = {...state};
-    switch(action.type){
-        case(SET_SONGS):
-        action.songs.songs.forEach(song => {
-            newState.songs[song.id] = song;
-        })
-        return newState;
+    let newState = { ...state };
+    switch (action.type) {
+        case (SET_SONGS):
+            action.songs.songs.forEach(song => {
+                newState.songs[song.id] = song;
+            })
+            return newState;
 
-        case(SET_SONGS_FOR_USER):
-        action.songs.songs.forEach(song => {
-            newState.userSongs[song.id] = song;
-        })
-        return newState;
-        case(GET_SONG_BYID):
-        newState.currentSong = {};
-        newState.currentSong[action.song.songs.id] = action.song;
-        return newState
-        case(CREATE_SONG):
-        newState.songs[action.song.id] = action.song;
-        return newState;
-        case(EDIT_SONG):
-        newState.songs[action.song.id] = action.song;
-        return newState;
-        case(DELETE_SONG):
-        delete newState.songs[action.songId];
-        delete newState.userSongs[action.songId];
-        return newState;
+        case (SET_SONGS_FOR_USER):
+            action.songs.songs.forEach(song => {
+                newState.userSongs[song.id] = song;
+            })
+            return newState;
+        case (GET_SONG_BYID):
+            newState.currentSong = {};
+            newState.currentSong[action.song.songs.id] = action.song;
+            return newState
+        case (CREATE_SONG):
+            newState.songs[action.song.id] = action.song;
+            return newState;
+        case (EDIT_SONG):
+            newState.songs[action.song.id] = action.song;
+            return newState;
+        case (DELETE_SONG):
+            delete newState.songs[action.songId];
+            delete newState.userSongs[action.songId];
+            return newState;
         default:
-        return state;
+            return state;
     }
 }
 

@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     toSafeObject() {
-      const {id, firstName, lastName, email, username} = this;
-      return {id, firstName, lastName, email, username};
+      const { id, firstName, lastName, email, username } = this;
+      return { id, firstName, lastName, email, username };
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString())
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     static getCurrentUserById(id) {
       return User.scope('currentUser').findByPk(id)
     }
-    static async login({ credential, password}) {
+    static async login({ credential, password }) {
       const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         return await User.scope('currentUser').findByPk(user.id)
       }
     }
-    static async signup ({firstName, lastName, email, username, password}) {
+    static async signup({ firstName, lastName, email, username, password }) {
       const hashedPassword = bcrypt.hashSync(password);
       const user = await User.create({
         firstName,
@@ -47,10 +47,10 @@ module.exports = (sequelize, DataTypes) => {
     }
     static associate(models) {
       // define association here
-      User.hasMany(models.Album, {foreignKey: 'userId'})
-      User.hasMany(models.Playlist, {foreignKey: 'userId'})
-      User.hasMany(models.Song, {foreignKey: 'userId'})
-      User.hasMany(models.Comment, {foreignKey: 'userId'})
+      User.hasMany(models.Album, { foreignKey: 'userId' })
+      User.hasMany(models.Playlist, { foreignKey: 'userId' })
+      User.hasMany(models.Song, { foreignKey: 'userId' })
+      User.hasMany(models.Comment, { foreignKey: 'userId' })
     }
   }
   User.init({
@@ -79,6 +79,9 @@ module.exports = (sequelize, DataTypes) => {
         len: [3, 256]
       }
     },
+    bio: {
+      type: DataTypes.STRING
+    },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
@@ -99,19 +102,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     scopes: {
       currentUser: {
-        attributes: {exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'previewImage']}
+        attributes: { exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'previewImage'] }
       },
       loginUser: {
         attributes: {}
       },
       Artist: {
-        attributes: {exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email']}
+        attributes: { exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email'] }
       },
       User: {
-       attributes: {
-        exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email', 'previewImage']
+        attributes: {
+          exclude: ["hashedPassword", 'createdAt', 'updatedAt', 'firstName', 'lastName', 'email', 'previewImage']
+        }
       }
-    }
     }
   });
   return User;
