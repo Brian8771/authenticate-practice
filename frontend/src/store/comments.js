@@ -2,11 +2,12 @@ import { csrfFetch } from "./csrf";
 
 const GET_COMMENTS = 'comments/getComments';
 const CREATE_COMMENT = 'comments/createComments';
+const EDIT_COMMENT = 'comments/EDIT_COMMENT';
 const DELETE_COMMENT = 'comments/deleteComments';
 
 const commentById = (comments) => {
     return {
-        type:GET_COMMENTS,
+        type: GET_COMMENTS,
         comments
     }
 }
@@ -17,6 +18,14 @@ const createComment = (comment) => {
         comment
     }
 }
+
+const editComment = (comment) => {
+    return {
+        type: EDIT_COMMENT,
+        comment
+    }
+}
+
 const deleteComment = (commentId) => {
     return {
         type: DELETE_COMMENT,
@@ -34,11 +43,20 @@ export const getCommentsById = (songId) => async dispatch => {
 export const createComments = (songId, body) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${songId}/comments`, {
         method: 'POST',
-        body: JSON.stringify({body})
+        body: JSON.stringify({ body })
     });
     const comment = await response.json();
     dispatch(createComment(comment));
     return comment;
+}
+
+export const editComments = (id, body) => async dispatch => {
+    const response = await csrfFetch(`/api/comments/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ body })
+    });
+    const comment = await response.json();
+    dispatch(editComment(comment))
 }
 
 export const deleteComments = (songId) => async dispatch => {
@@ -51,24 +69,27 @@ export const deleteComments = (songId) => async dispatch => {
     return comment;
 }
 
-const initialState = {comments: {}}
+const initialState = { comments: {} }
 
 const commentsReducer = (state = initialState, action) => {
-    let newState = {comments: {}};
-    switch(action.type){
-        case(GET_COMMENTS):
-        action.comments.forEach(comment => {
-            newState.comments[comment.id] = comment;
-        })
-        return newState;
-        case(CREATE_COMMENT):
-        newState.comments[action.comment.id] = action.comment;
-        return newState;
-        case(DELETE_COMMENT):
-        delete newState.comments[action.commentId];
-        return newState;
+    let newState = { comments: {} };
+    switch (action.type) {
+        case (GET_COMMENTS):
+            action.comments.forEach(comment => {
+                newState.comments[comment.id] = comment;
+            })
+            return newState;
+        case (CREATE_COMMENT):
+            newState.comments[action.comment.id] = action.comment;
+            return newState;
+        case (EDIT_COMMENT):
+            newState.comments[action.comment.id] = action.comment;
+            return newState;
+        case (DELETE_COMMENT):
+            delete newState.comments[action.commentId];
+            return newState;
         default:
-        return state;
+            return state;
     }
 }
 

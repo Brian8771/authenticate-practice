@@ -34,7 +34,7 @@
 }
 
 .commentBorder {
-    text-indent: 70px;
+    margin-left: 70px;
     height: 70%;
     overflow-x: auto;
     list-style: none;

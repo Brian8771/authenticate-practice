@@ -5,16 +5,20 @@ import * as commentActions from '../../store/comments';
 import { NavLink, useHistory, useParams } from 'react-router-dom';
 import EditSong from '../editForm';
 import './Songprofile.css';
+import EditComment from '../EditComment';
+
 
 
 function SongProfile() {
     const history = useHistory();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
+    const [commentsLoaded, setCommentsLoaded] = useState(true);
     const [body, setBody] = useState('');
     const [errors, setErrors] = useState('');
     const { songId } = useParams();
     const [editSong, setEditSong] = useState(false);
+    const [editComment, setEditComment] = useState(false);
     const songs = useSelector(state => state.songDetail.currentSong);
     const user = useSelector(state => state.session.user);
     let comment = Object.values(useSelector(state => state.comments.comments));
@@ -125,9 +129,19 @@ function SongProfile() {
                             </form>
                             <h3 style={{ display: 'flex', paddingLeft: '110px' }}>{comment.length ? comment.length : 0} comments</h3>
                             <ul className='commentBorder'>
-                                {comment && comment.map(({ id, body, userId }) => (
-                                    <div style={{ display: 'flex', width: '87%', alignContent: 'start' }}>
-                                        <li className='liEle' style={{ display: 'inline-flex' }} key={id}>{body} {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => deleteCommentButton(id, songId)} >X</button> : ''}</li>
+                                {commentsLoaded && comment && comment.map(({ id, body, userId }) => (
+                                    <div style={{ display: 'flex', width: '87%' }}>
+                                        {editComment === false ? <li className='liEle' style={{ display: 'inline-flex' }} key={id}>
+                                            {body}
+                                            {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => setEditComment(id)}>Edit</button> : ''}
+                                            {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => deleteCommentButton(id, songId)} >Delete</button> : ''}
+                                        </li> :
+                                            <li className='liEle' style={{ display: 'inline-flex' }} key={id}>
+                                                {editComment === id && <EditComment id={id} body={body} setEditComment={setEditComment} songId={songId} setComments={setCommentsLoaded} />}
+                                                {editComment !== id && body}
+                                            </li>
+                                        }
+                                        {/* <li className='liEle' style={{ display: 'inline-flex' }} key={id}>{user && comment && userId === user.id ? <EditCommentModal /> : ''}</li> */}
                                     </div>
                                 ))}
                             </ul>
