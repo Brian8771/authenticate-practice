@@ -11,13 +11,15 @@ import SongProfile from "./components/SongProfile";
 import CreateSong from "./components/CreateSong";
 import UserSongs from "./components/MySongs";
 import UserProfile from "./components/UserProfile";
+import { getAllAlbums } from "./store/album";
+import { getSongs } from "./store/Songs";
 
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() =>
+    dispatch(sessionActions.restoreUser()).then(dispatch(getAllAlbums())).then(dispatch(getSongs())).then(() =>
       setIsLoaded(true));
   }, [dispatch]);
 

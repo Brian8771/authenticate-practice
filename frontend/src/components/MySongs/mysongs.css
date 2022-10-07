@@ -17,3 +17,7 @@
     gap: 10px;
     padding: 0;
 }
+
+.grid::-webkit-scrollbar {
+    display: none;
+}
