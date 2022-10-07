@@ -27,7 +27,7 @@ const validateTitle = [
 ]
 
 router.get('/', async (req, res) => {
-    const albums = await Album.findAll({ include: 'User' });
+    const albums = await Album.findAll({ include: [{ model: User }, { model: Song }] });
 
     res.json(albums);
 })

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { getAllAlbums } from '../../store/album';
 import * as songActions from '../../store/Songs';
 import './createSong.css';
 
@@ -33,6 +34,7 @@ function CreateSong() {
             }
             else setErrors([data.message]);
         });
+        await dispatch(getAllAlbums());
         if (createdSong) {
             history.push(`/songs/${createdSong.id}`);
         }

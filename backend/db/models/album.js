@@ -11,17 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Album.belongsTo(models.User, {foreignKey: 'userId'})
-      // Album.hasMany(models.Song, {foreignKey: 'albumId'})
+      Album.belongsTo(models.User, { foreignKey: 'userId' })
+      Album.hasMany(models.Song, { foreignKey: 'albumId' })
     }
   }
   Album.init({
     userId: {
-      type:DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     title: {
-      type:DataTypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     description: DataTypes.STRING,
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Album',
     defaultScope: {
-    attributes: {}
+      attributes: {}
     },
     scopes: {
       albumSong: {

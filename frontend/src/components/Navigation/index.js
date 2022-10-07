@@ -78,7 +78,7 @@ function Navigation({ isLoaded }) {
             {sessionUser ?
                 <div className='divForLi'>
                     <li className='liNav' >
-                        <NavLink to='/songs/user' className='navLinks'>My Songs</NavLink>
+                        <NavLink to='/songs/user' className='navLinks'>Library</NavLink>
                     </li>
                 </div> : ''
             }

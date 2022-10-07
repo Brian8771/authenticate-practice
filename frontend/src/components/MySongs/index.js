@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as songActions from '../../store/Songs';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './mysongs.css';
 
 
@@ -12,6 +12,8 @@ function UserSongs() {
 
     const songs = Object.values(useSelector(state => state.songDetail.userSongs));
     const user = useSelector(state => state.session.user);
+    const albums = Object.values(useSelector(state => state.albums.allAlbums)).filter(x => x.userId === user.id)
+    console.log(albums);
 
     // if (user === null) {
     //     history.push('/')
@@ -53,6 +55,35 @@ function UserSongs() {
                         )}
                     {/* {songs.length === 0 && <h1>Sign in to view Songs</h1>} */}
                 </div>
+            </ul>
+            <h2 className='header' style={{ backgroundColor: 'white', width: '80%', margin: 0, paddingTop: '0px', height: '10vh' }}>My Albums:</h2>
+            <ul className='grid' >
+                <div className="innerGrid">
+                    {isLoaded && albums && songs &&
+                        albums.map(album =>
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <li className='gridChildren' key={album.id}  >
+                                    <Link to={`/`}>
+                                        {
+                                            album.previewImage.endsWith('.jpg') ?
+                                                <img style={{ height: '10em', width: '10em' }} src={album.previewImage} alt={album.description} /> :
+                                                <img style={{ height: '10em', width: '10em' }} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={album.description} />
+                                        }
+                                    </Link>
+                                    <br />
+                                    <NavLink to={`/artists/${album.User.id}`} style={{ textDecoration: 'none', display: 'border-box', width: '160px', fontSize: '14px', margin: 0, color: '#c6c6c6' }}>
+                                        {album.User.username}
+                                    </NavLink>
+                                    <div style={{ fontWeight: 550, fontSize: '14px' }}>
+                                        {album.title}
+                                    </div>
+                                    <br />
+                                </li>
+                            </div>
+                        )
+                    }
+                </div>
+
             </ul>
         </div>
     )
