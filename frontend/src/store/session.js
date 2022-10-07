@@ -11,6 +11,7 @@ const setUser = (user) => {
     };
 };
 
+
 const removeUser = () => {
     return {
         type: REMOVER_USER,

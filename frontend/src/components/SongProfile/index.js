@@ -99,8 +99,8 @@ function SongProfile() {
                                             }
                                         </div>
                                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                            {deleteButton}
                                             {editButton}
+                                            {deleteButton}
                                         </div>
                                     </div>
                                 </div>
