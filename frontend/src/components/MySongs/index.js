@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as songActions from '../../store/Songs';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './mysongs.css';
 
 
@@ -18,42 +18,43 @@ function UserSongs() {
     //     alert('Must be logged in to view MySongs');
     // }
 
-    useEffect(() =>{
+    useEffect(() => {
         dispatch(songActions.getSongsByUser()).then(() =>
-        setIsLoaded(true))
+            setIsLoaded(true))
     }
-    , [dispatch, user])
+        , [dispatch, user])
 
     return (
-       <div  style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center'}}>
-        <h2 className='header' style={{backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0'}}>My Songs:</h2>
-        <ul className='grid' >
-        {isLoaded && songs &&
-        songs.map(song =>
-            <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-            <li className='gridChildren' key={song.id}>
-                <Link to={`/songs/${song.id}`}>
-                {
-                    song.previewImage.endsWith('.jpg') ?
-                    <img style={{height: '10em', width: '10em'}} src={song.previewImage} alt={song.description}/> :
-                    <img style={{height: '10em', width: '10em'}} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={song.description} />
-                }
-                </Link>
-                <br/>
-                <div style={{fontWeight: 550, fontSize: '14px'}}>
-                {song.title}
+        <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center' }}>
+            <h2 className='header' style={{ backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0' }}>My Songs:</h2>
+            <ul className='grid' style={{ alignItems: 'flex-start' }}>
+                <div className="innerGrid">
+                    {isLoaded && songs &&
+                        songs.map(song =>
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <li className='gridChildren' key={song.id}>
+                                    <Link to={`/songs/${song.id}`}>
+                                        {
+                                            song.previewImage.endsWith('.jpg') ?
+                                                <img style={{ height: '10em', width: '10em' }} src={song.previewImage} alt={song.description} /> :
+                                                <img style={{ height: '10em', width: '10em' }} src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={song.description} />
+                                        }
+                                    </Link>
+                                    <br />
+                                    <div style={{ fontWeight: 550, fontSize: '14px' }}>
+                                        {song.title}
+                                    </div>
+                                    <div style={{ display: 'border-box', height: '30px', width: '100px', fontSize: '12px' }}>
+                                        {song.description}
+                                    </div>
+                                    <br />
+                                </li>
+                            </div>
+                        )}
+                    {/* {songs.length === 0 && <h1>Sign in to view Songs</h1>} */}
                 </div>
-                <div style={{display: 'border-box', height: '30px', width: '100px', fontSize:'12px'}}>
-                {song.description}
-                </div>
-                <br />
-            </li>
-            </div>
-            )}
-        {/* {songs.length === 0 && <h1>Sign in to view Songs</h1>} */}
-
-        </ul>
-       </div>
+            </ul>
+        </div>
     )
 }
 

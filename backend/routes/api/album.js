@@ -1,46 +1,46 @@
 const express = require('express');
-const {restoreUser} = require('../../utils/auth');
-const {requireAuth} = require('../../utils/auth');
-const {Song, Album, User} = require('../../db/models');
-const {check} = require('express-validator');
-const {handleValidationErrors} = require('../../utils/validation');
+const { restoreUser } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
+const { Song, Album, User } = require('../../db/models');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 const validateTitleAndUrl = [
     check('title')
-    .not()
-    .isEmpty()
-    .withMessage('Song title is required'),
+        .not()
+        .isEmpty()
+        .withMessage('Song title is required'),
     check('url')
-    .not()
-    .isEmpty()
-    .withMessage('Audio is required'),
+        .not()
+        .isEmpty()
+        .withMessage('Audio is required'),
     handleValidationErrors
 ];
 
 const validateTitle = [
     check('title')
-    .not()
-    .isEmpty()
-    .withMessage('Album title is required'),
+        .not()
+        .isEmpty()
+        .withMessage('Album title is required'),
     handleValidationErrors
 ]
 
-router.get('/', async(req, res) => {
-    const albums = await Album.findAll();
+router.get('/', async (req, res) => {
+    const albums = await Album.findAll({ include: 'User' });
 
     res.json(albums);
 })
 
-router.get('/current',[requireAuth, restoreUser], async(req, res) => {
-    const {id} = req.user;
-    const albums = await Album.findAll({where: {userId: id}});
+router.get('/current', [requireAuth, restoreUser], async (req, res) => {
+    const { id } = req.user;
+    const albums = await Album.findAll({ where: { userId: id } });
 
     res.json(albums);
 })
 
-router.get('/:id', async(req, res) => {
-    const album = await Album.findOne({where: {id: req.params.id}});
+router.get('/:id', async (req, res) => {
+    const album = await Album.findOne({ where: { id: req.params.id } });
 
     if (!album) {
         res.status(404);
@@ -50,16 +50,16 @@ router.get('/:id', async(req, res) => {
         })
     }
 
-    const artist = await User.scope('Artist').findOne({where: {id: album.userId}})
+    const artist = await User.scope('Artist').findOne({ where: { id: album.userId } })
 
-    const songs = await Song.findAll({where: {albumId: album.id}});
+    const songs = await Song.findAll({ where: { albumId: album.id } });
 
-    res.json({album, artist, songs})
+    res.json({ album, artist, songs })
 })
 
-router.post('/', [requireAuth, restoreUser, validateTitle], async(req, res) => {
-    const {id} = req.user;
-    const {title, description, imageUrl} = req.body;
+router.post('/', [requireAuth, restoreUser, validateTitle], async (req, res) => {
+    const { id } = req.user;
+    const { title, description, imageUrl } = req.body;
 
     const newAlbum = await Album.create({
         userId: id,
@@ -68,17 +68,17 @@ router.post('/', [requireAuth, restoreUser, validateTitle], async(req, res) => {
         previewImage: imageUrl
     });
 
-    const album = await Album.findOne({where: {title: title}});
+    const album = await Album.findOne({ where: { title: title } });
     res.status(201);
     res.json(album);
 
 })
 
-router.put('/:id',[requireAuth, restoreUser, validateTitle], async(req, res) => {
-    const {id} = req.user;
-    const {title, description, imageUrl} = req.body;
+router.put('/:id', [requireAuth, restoreUser, validateTitle], async (req, res) => {
+    const { id } = req.user;
+    const { title, description, imageUrl } = req.body;
 
-    const fixAlbum = await Album.findOne({where: {id: req.params.id}});
+    const fixAlbum = await Album.findOne({ where: { id: req.params.id } });
 
 
     if (!fixAlbum) {
@@ -97,16 +97,16 @@ router.put('/:id',[requireAuth, restoreUser, validateTitle], async(req, res) => 
         });
     };
 
-    if (title) fixAlbum.update({title: title});
-    if (description) fixAlbum.update({description: description});
-    if (imageUrl) fixAlbum.update({previewImage: imageUrl});
+    if (title) fixAlbum.update({ title: title });
+    if (description) fixAlbum.update({ description: description });
+    if (imageUrl) fixAlbum.update({ previewImage: imageUrl });
 
     res.json(fixAlbum);
 });
-router.delete('/:id', [requireAuth, restoreUser],async(req,res) => {
-    const {id} = req.user;
+router.delete('/:id', [requireAuth, restoreUser], async (req, res) => {
+    const { id } = req.user;
 
-    const album = await Album.findOne({where: {id: req.params.id}});
+    const album = await Album.findOne({ where: { id: req.params.id } });
 
     if (!album) {
         res.status(404);
@@ -132,10 +132,10 @@ router.delete('/:id', [requireAuth, restoreUser],async(req,res) => {
     })
 })
 
-router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], async(req, res) => {
-    const {id} = req.user;
+router.post('/:albumId/songs', [requireAuth, restoreUser, validateTitleAndUrl], async (req, res) => {
+    const { id } = req.user;
 
-    const {title, description, url, imageUrl} = req.body;
+    const { title, description, url, imageUrl } = req.body;
 
     // const album = await Album.findOne({where: {id: req.params.albumId}})
 
@@ -182,7 +182,7 @@ router.post('/:albumId/songs',[requireAuth, restoreUser, validateTitleAndUrl], a
         previewImage: imageUrl
     });
 
-    const foundSong = await Song.findOne({where: {title: title}});
+    const foundSong = await Song.findOne({ where: { title: title } });
     // if (title) album.title = title;
     // if (description) album.description = description;
     // if (url) album.url = url;
