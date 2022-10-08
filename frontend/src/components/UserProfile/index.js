@@ -96,7 +96,7 @@ const UserProfile = () => {
                                     <div style={{ maxHeight: '120px', overflowY: 'scroll' }}>
                                         {album.Songs.map(song => {
                                             return <NavLink style={{ textDecoration: 'none', width: '100%' }} to={`/songs/${song.id}`}>
-                                                <p style={{ borderBottom: '2px solid #F2F2F2', color: 'black' }}>{song.id} {song.title}</p>
+                                                <p style={{ borderBottom: '2px solid #F2F2F2', color: 'black' }}>{song.title}</p>
                                             </NavLink>
                                         })}
                                     </div>

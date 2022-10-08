@@ -98,7 +98,7 @@ function Navigation({ isLoaded }) {
             {isLoaded && sessionLinks}
             <div className='divForLi'>
                 <li className='liNav' >
-                    <NavLink className='navLinks' to='/songs/create'>Upload</NavLink>
+                    <NavLink className='navLinks' to='/upload'>Upload</NavLink>
                 </li>
 
             </div>

@@ -13,6 +13,8 @@ import UserSongs from "./components/MySongs";
 import UserProfile from "./components/UserProfile";
 import { getAllAlbums } from "./store/album";
 import { getSongs } from "./store/Songs";
+import CreateAlbum from "./components/CreateAlbum.js";
+import UploadChoice from "./components/UploadChoice";
 
 
 function App() {
@@ -36,8 +38,14 @@ function App() {
           <Route path='/signup'>
             <SignupFormPage />
           </Route>
+          <Route path='/upload'>
+            <UploadChoice />
+          </Route>
           <Route path='/songs/create'>
             <CreateSong />
+          </Route>
+          <Route path='/albums/create'>
+            <CreateAlbum />
           </Route>
           <Route path={'/songs/user'}>
             <UserSongs />

@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
         res.cookie('XSRF-TOKEN', req.csrfToken());
         return res.sendFile(
             path.resolve(__dirname, '../../frontend', 'build',
-            'index.html'
+                'index.html'
             )
         );
     });
@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === 'production') {
         res.cookie('XSRF-TOKEN', req.csrfToken());
         return res.sendFile(
             path.resolve(__dirname, '../../frontend', 'build',
-            'index.html')
+                'index.html')
         );
     });
 }

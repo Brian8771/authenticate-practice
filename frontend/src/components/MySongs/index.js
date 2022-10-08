@@ -10,10 +10,10 @@ function UserSongs() {
     const [isLoaded, setIsLoaded] = useState(false);
 
 
-    const songs = Object.values(useSelector(state => state.songDetail.userSongs));
     const user = useSelector(state => state.session.user);
+    const songs = Object.values(useSelector(state => state.songDetail.songs)).filter(x => x.userId === user.id);
     const albums = Object.values(useSelector(state => state.albums.allAlbums)).filter(x => x.userId === user.id)
-    console.log(albums);
+    console.log(songs);
 
     // if (user === null) {
     //     history.push('/')
@@ -21,20 +21,21 @@ function UserSongs() {
     // }
 
     useEffect(() => {
-        dispatch(songActions.getSongsByUser()).then(() =>
+        dispatch(songActions.getSongs()).then(() =>
             setIsLoaded(true))
     }
         , [dispatch, user])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center' }}>
-            <h2 className='header' style={{ backgroundColor: 'white', width: '80%', margin: 0, padding: '30px 0' }}>My Songs:</h2>
-            <ul className='grid' style={{ alignItems: 'flex-start' }}>
+            <h2 className='header' style={{ backgroundColor: 'white', width: '80%', margin: 0, paddingTop: '30px', height: '10vh' }}>Songs:</h2>
+            <ul className='grid' >
                 <div className="innerGrid">
-                    {isLoaded && songs &&
+                    {isLoaded && songs && albums &&
                         songs.map(song =>
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <li className='gridChildren' key={song.id}>
+                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: '20px' }}>
+
+                                <li className='gridChildren' key={song.id}  >
                                     <Link to={`/songs/${song.id}`}>
                                         {
                                             song.previewImage.endsWith('.jpg') ?
@@ -43,25 +44,26 @@ function UserSongs() {
                                         }
                                     </Link>
                                     <br />
+                                    <NavLink to={`/artists/${song.Artist.id}`} style={{ textDecoration: 'none', display: 'border-box', width: '160px', fontSize: '14px', margin: 0, color: '#c6c6c6' }}>
+                                        {song.Artist.username}
+                                    </NavLink>
                                     <div style={{ fontWeight: 550, fontSize: '14px' }}>
                                         {song.title}
-                                    </div>
-                                    <div style={{ display: 'border-box', height: '30px', width: '100px', fontSize: '12px' }}>
-                                        {song.description}
                                     </div>
                                     <br />
                                 </li>
                             </div>
-                        )}
-                    {/* {songs.length === 0 && <h1>Sign in to view Songs</h1>} */}
+                        )
+                    }
                 </div>
+
             </ul>
-            <h2 className='header' style={{ backgroundColor: 'white', width: '80%', margin: 0, paddingTop: '0px', height: '10vh' }}>My Albums:</h2>
+            <h2 className='header' style={{ backgroundColor: 'white', width: '80%', margin: 0, paddingTop: '0px', height: '10vh' }}>Albums:</h2>
             <ul className='grid' >
                 <div className="innerGrid">
                     {isLoaded && albums && songs &&
                         albums.map(album =>
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: '20px' }}>
                                 <li className='gridChildren' key={album.id}  >
                                     <Link to={`/`}>
                                         {

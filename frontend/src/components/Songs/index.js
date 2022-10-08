@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import * as songActions from '../../store/Songs';
 import { Link, NavLink } from 'react-router-dom';
 import './Songs.css';
-import { getAllAlbums } from "../../store/album";
 
 
 function Songs() {
@@ -26,7 +25,7 @@ function Songs() {
                 <div className="innerGrid">
                     {isLoaded && songs && albums &&
                         songs.map(song =>
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: '20px' }}>
 
                                 <li className='gridChildren' key={song.id}  >
                                     <Link to={`/songs/${song.id}`}>
@@ -56,7 +55,7 @@ function Songs() {
                 <div className="innerGrid">
                     {isLoaded && albums && songs &&
                         albums.map(album =>
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: '20px' }}>
                                 <li className='gridChildren' key={album.id}  >
                                     <Link to={`/`}>
                                         {
