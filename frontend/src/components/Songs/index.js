@@ -57,7 +57,7 @@ function Songs() {
                         albums.map(album =>
                             <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: '20px' }}>
                                 <li className='gridChildren' key={album.id}  >
-                                    <Link to={`/`}>
+                                    <Link to={`/album/${album.id}`}>
                                         {
                                             album.previewImage.endsWith('.jpg') ?
                                                 <img style={{ height: '10em', width: '10em' }} src={album.previewImage} alt={album.description} /> :

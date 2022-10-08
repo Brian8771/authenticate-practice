@@ -1,0 +1,38 @@
+.albumDiv {
+    height: 10em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.albumDesc {
+    margin-left: 10px;
+}
+
+.albumDetailsDiv {
+    display: flex;
+    height: 80%;
+    padding-left: 10px;
+}
+
+.userImage {
+    height: 8em;
+    width: 8em;
+    border-radius: 50%;
+}
+
+.smallImage {
+    height: 2em;
+    width: 2em;
+}
+
+.songNav {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.songP {
+    margin-left: 6px;
+    color: black;
+}

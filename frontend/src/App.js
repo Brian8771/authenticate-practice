@@ -15,6 +15,7 @@ import { getAllAlbums } from "./store/album";
 import { getSongs } from "./store/Songs";
 import CreateAlbum from "./components/CreateAlbum.js";
 import UploadChoice from "./components/UploadChoice";
+import AlbumProfile from "./components/AlbumProfile";
 
 
 function App() {
@@ -52,6 +53,9 @@ function App() {
           </Route>
           <Route path='/songs/:songId'>
             <SongProfile />
+          </Route>
+          <Route path={`/album/:id`}>
+            <AlbumProfile />
           </Route>
           <Route path='/artists/:id'>
             <UserProfile />
