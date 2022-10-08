@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { getAllAlbums } from '../../store/album';
 import * as songActions from '../../store/Songs';
@@ -14,6 +14,8 @@ function CreateSong() {
     const [url, setUrl] = useState('')
     const [imageUrl, setImageUrl] = useState('');
     let [albumId, setAlbumId] = useState('');
+    const user = useSelector(state => state.session.user);
+    const albums = Object.values(useSelector(state => state.albums.allAlbums)).filter(x => x.userId == user.id);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,6 +41,10 @@ function CreateSong() {
             history.push(`/songs/${createdSong.id}`);
         }
     }
+
+    useEffect(() => {
+        dispatch(getAllAlbums())
+    }, [])
 
     useEffect(() => {
         const newErrors = []
@@ -95,14 +101,22 @@ function CreateSong() {
                             type='text'
                         // required={true}
                         />
-                        <input
+                        <label style={{ width: '90%' }}>
+                            Album:
+                        </label>
+                        <select
+                            style={{ width: '90%', height: '2rem' }}
                             placeholder='Album Number'
                             className='input inputs'
                             name='album'
                             value={albumId}
                             onChange={(e) => setAlbumId(e.target.value)}
                             type='number'
-                        />
+                        >
+                            {albums && albums.map(album => {
+                                return <option value={album.id}>{album.title}</option>
+                            })}
+                        </select>
                         <button disabled={errors.length > 0 ? true : false} style={{ backgroundColor: '#ff5500' }} className='button' type='submit'>Upload</button>
                     </form>
                 </section>
