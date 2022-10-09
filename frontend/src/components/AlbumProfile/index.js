@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory, useParams } from 'react-router-dom';
-import { getAllAlbums } from '../../store/album';
+import { deleteAlbum, getAllAlbums } from '../../store/album';
 import './AlbumProfile.css'
 
 function AlbumProfile() {
@@ -10,38 +10,21 @@ function AlbumProfile() {
     const history = useHistory();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
-    const { songId } = useParams();
     const album = Object.values(useSelector(state => state.albums.allAlbums)).filter(x => x.id === Number(id.id))[0];
     const user = useSelector(state => state.session.user);
-    console.log(album)
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     const newComment = await dispatch(commentActions.createComments(songId, body)).catch(async (res) => {
-    //         const data = await res.json();
-    //         if (data.message)
-    //             if (data.message === 'Validation Error') {
+    const deleteAlbums = async () => {
+        await dispatch(deleteAlbum(album.id));
+        history.push('/');
+    }
 
-    //                 setErrors(data.errors);
-    //             }
-    //             else setErrors([data.message]);
-    //     });
-    //     await dispatch(commentActions.getCommentsById(songId))
-
-    //     if (newComment) {
-    //         setBody('')
-    //         setErrors([]);
-    //     }
-    // }
-
-
-    // let deleteButton;
+    let deleteButton;
     // let editButton;
-    // if (user && isLoaded && songs[songId].artist.id === user.id) {
-    //     deleteButton = <button className='deleteSongButton' onClick={() => deleteSong()}>Delete</button>;
+    if (user && isLoaded && album.User.id === user.id) {
+        deleteButton = <button className='deleteSongButton' onClick={() => deleteAlbums()}>Delete</button>;
 
-    //     editButton = <button className='editButton' onClick={() => setEditSong(true)}>Edit</button>;
-    // }
+        // editButton = <button className='editButton' onClick={() => setEditSong(true)}>Edit</button>;
+    }
 
     // let content;
     // if (editSong) {
@@ -76,10 +59,10 @@ function AlbumProfile() {
                                         <img className='img' src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={album.description} />
                                 }
                             </div>
-                            {/* <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                    {editButton}
-                                    {deleteButton}
-                                </div> */}
+                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                {/* {editButton} */}
+                                {deleteButton}
+                            </div>
                         </div>
                     </div>
                 </div>
