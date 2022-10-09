@@ -58,7 +58,7 @@ export const createAlbum = (body) => async dispatch => {
 
 export const editAlbum = (id, body) => async dispatch => {
     const { title, description, imageUrl } = body
-    const response = await fetch(`/api/albums/${id}`, {
+    const response = await csrfFetch(`/api/albums/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
             title,
@@ -72,10 +72,9 @@ export const editAlbum = (id, body) => async dispatch => {
 }
 
 export const deleteAlbum = (id) => async dispatch => {
-    const response = await fetch(`/api/albums/${id}`, {
+    const response = await csrfFetch(`/api/albums/${id}`, {
         method: 'DELETE'
     })
-
     const album = await response.json();
     dispatch(delete_album(id));
     return album;

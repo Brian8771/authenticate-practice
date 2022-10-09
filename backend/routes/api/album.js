@@ -104,9 +104,9 @@ router.put('/:id', [requireAuth, restoreUser, validateTitle], async (req, res) =
     res.json(fixAlbum);
 });
 router.delete('/:id', [requireAuth, restoreUser], async (req, res) => {
-    const { userId } = req.user;
+    const { id } = req.user;
 
-    const album = await Album.findOne({ where: { id: req.params.id } });
+    const album = await Album.findOne({ where: { id: req.params.id }, include: [{ model: User }] });
 
     if (!album) {
         res.status(404);
@@ -115,11 +115,10 @@ router.delete('/:id', [requireAuth, restoreUser], async (req, res) => {
             statusCode: 404
         })
     };
-
-    if (album.userId !== userId) {
+    if (album.User.id !== id) {
         res.status(403);
         return res.json({
-            message: 'Forbidden',
+            message: 'Forbiddensssssssssss',
             statusCode: 403
         })
     };
