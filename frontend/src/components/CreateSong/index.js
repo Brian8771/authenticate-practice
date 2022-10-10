@@ -61,9 +61,9 @@ function CreateSong() {
                 <section >
                     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '50em', alignItems: 'center' }}>
                         <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Upload Song</h1>
-                        <ul>
+                        <ul style={{ listStyleType: 'none' }}>
                             {errors && errors.map(error =>
-                                <li key={error}>{error}</li>
+                                <li style={{ color: 'red' }} key={error}>{error}</li>
                             )}
                         </ul>
                         <input

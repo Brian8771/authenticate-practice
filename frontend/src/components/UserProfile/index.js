@@ -61,7 +61,7 @@ const UserProfile = () => {
                 <div className='optionsDiv'>
                     <div className={songActive ? 'activateFirst' : 'firstOptionsButton'} onClick={() => activateSong()}>Songs</div>
                     <div className={albumActive ? 'activate' : "optionsButton"} onClick={() => activateAlbum()}>Albums</div>
-                    <div className={playlistActive ? 'activate' : "optionsButton"} onClick={() => activatePlaylist()}>Playlists</div>
+                    {/* <div className={playlistActive ? 'activate' : "optionsButton"} onClick={() => activatePlaylist()}>Playlists</div> */}
                 </div>
                 <div className={songs.length >= 3 ? "listForDivs" : 'listForDivsShorter'}>
                     {type === 'Songs' && <div>

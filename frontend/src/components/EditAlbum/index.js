@@ -1,44 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { editAlbum, getAllAlbums } from '../../store/album';
 import * as songActions from '../../store/Songs';
-import './edit.css'
 
 
-function EditSong({ song, songId, setEdit }) {
+
+function EditAlbum({ album, albumId, setEdit }) {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState(song[songId].songs.title);
-    const [description, setDescription] = useState(song[songId].songs.description);
-    const [url, setUrl] = useState(song[songId].songs.url)
-    const [previewImage, setPreviewImage] = useState(song[songId].songs.previewImage);
+    const [title, setTitle] = useState(album.title);
+    const [description, setDescription] = useState(album.description);
+    const [imageUrl, setImageUrl] = useState(album.previewImage);
     const [errors, setErrors] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const song = {
+        const album = {
 
             title,
             description,
-            url,
-            previewImage,
+            imageUrl,
         }
-        await dispatch(songActions.editSong(songId, song));
-        await dispatch(songActions.getSongByIdNum(songId));
+        await dispatch(editAlbum(albumId, album));
+        await dispatch(getAllAlbums());
         await setEdit(false);
     }
 
     useEffect(() => {
         const newErrors = []
         if (title.length === 0) newErrors.push('Must add title');
-        if (url && !url.endsWith('.wav')) newErrors.push('Song must end with .wav');
-        if (previewImage && !previewImage.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
+        if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
         setErrors(newErrors)
-    }, [url, previewImage, title])
+    }, [imageUrl, title])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '20px' }}>
             <div style={{ backgroundColor: 'white', width: '80%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100vh', justifyContent: 'start', alignItems: 'center' }}>
-                    <h2 style={{ display: 'flex', justifyContent: 'center', alignItems: 'start' }}>Edit Song</h2>
+                    <h2 style={{ display: 'flex', justifyContent: 'center', alignItems: 'start' }}>Edit Album</h2>
                     <ul style={{ listStyleType: 'none' }}>
                         {errors && errors.map(error =>
                             <li style={{ color: 'red' }} key={error}>{error}</li>
@@ -63,23 +61,13 @@ function EditSong({ song, songId, setEdit }) {
                         onChange={(e) => setDescription(e.target.value)}
                         type='text'
                     />
-                    <label className='labelEdit'>Url:
-                    </label>
-                    <input
-                        className='inputEdit'
-                        name='url'
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                        type='text'
-                        required={true}
-                    />
                     <label className='labelEdit'>ImageUrl:
                     </label>
                     <input
                         className='inputEdit'
                         name='imageUrl'
-                        value={previewImage}
-                        onChange={(e) => setPreviewImage(e.target.value === '' ? '' : e.target.value)}
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value === '' ? '' : e.target.value)}
                         type='text'
                     />
                     <button disabled={errors.length > 0 ? true : false} className='editSongButton' type='submit'>Upload</button>
@@ -90,4 +78,4 @@ function EditSong({ song, songId, setEdit }) {
     )
 }
 
-export default EditSong;
+export default EditAlbum;

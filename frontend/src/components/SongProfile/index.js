@@ -99,8 +99,12 @@ function SongProfile() {
                                             }
                                         </div>
                                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                            {editButton}
-                                            {deleteButton}
+                                            <div style={{ marginRight: '5px' }}>
+                                                {editButton}
+                                            </div>
+                                            <div>
+                                                {deleteButton}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

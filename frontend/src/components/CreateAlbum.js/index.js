@@ -35,9 +35,10 @@ function CreateAlbum() {
 
     useEffect(() => {
         const newErrors = []
+        if (title.length === 0) newErrors.push('Must add title');
         if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
         setErrors(newErrors)
-    }, [imageUrl])
+    }, [imageUrl, title])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center' }}>
@@ -46,9 +47,9 @@ function CreateAlbum() {
                 <section >
                     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '50em', alignItems: 'center' }}>
                         <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>Upload Album</h1>
-                        <ul>
+                        <ul style={{ listStyleType: 'none' }}>
                             {errors && errors.map(error =>
-                                <li key={error}>{error}</li>
+                                <li style={{ color: 'red' }} key={error}>{error}</li>
                             )}
                         </ul>
                         <input
