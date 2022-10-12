@@ -43,7 +43,7 @@ function ProfileButton({ user }) {
         <div style={{ position: 'absolute', top: '44px', backgroundColor: 'white', border: '1px solid black', textDecoration: 'none', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '8rem', padding: '10px 0' }} className="profile-dropdown">
           <NavLink to={`/artists/${user.id}`} style={{ textDecoration: 'none', color: 'black', fontSize: '14px', display: 'flex', alignItems: 'center' }}>
             <img src={user.previewImage} style={{ padding: '2px', height: '16px', width: '16px', borderRadius: '50%' }} />Profile</NavLink>
-          <div style={{ textDecoration: 'none' }}>{user.email}</div>
+          {/* <div style={{ textDecoration: 'none' }}>{user.email}</div> */}
           <div style={{ textDecoration: 'none' }}>
             <button onClick={logout}>Log Out</button>
           </div>
