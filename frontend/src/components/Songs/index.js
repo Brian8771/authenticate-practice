@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import * as songActions from '../../store/Songs';
 import { Link, NavLink } from 'react-router-dom';
 import './Songs.css';
+import profile from '../../images/profile.JPG'
+import github from '../../images/github.png';
+import linkedIn from '../../images/linkedIn.png';
 
 
 function Songs() {
@@ -79,6 +82,13 @@ function Songs() {
                 </div>
 
             </ul>
+            <div style={{ position: 'absolute', top: '3em', right: '0' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    {/* <img style={{ height: '20px', width: '20px', borderRadius: '50%' }} src={profile} /> */}
+                    <a href='https://github.com/Brian8771'><img style={{ height: '60px', width: '60px' }} src={github} /></a>
+                    <a href='https://www.linkedin.com/in/brian-aguilar-088438247/'><img style={{ height: '60px', width: '60px' }} src={linkedIn} /></a>
+                </div>
+            </div>
         </div>
     )
 }
