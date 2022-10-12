@@ -19,6 +19,15 @@ function CreateSong() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const newErrors = []
+        setErrors(newErrors)
+        if (newErrors.length === 0) {
+            if (title.length === 0) newErrors.push('Must add title');
+            if (!url) newErrors.push('Must have an Audio URL')
+            if (url && !url.endsWith('.wav')) newErrors.push('Song must end with .wav');
+            if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
+        }
+        if (newErrors.length > 0) return setErrors(newErrors)
         albumId = Number(albumId)
         const song = {
             title,
@@ -73,7 +82,7 @@ function CreateSong() {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             type='text'
-                            required={true}
+                        // required={true}
                         />
                         <input
                             placeholder='Description:'
@@ -90,7 +99,7 @@ function CreateSong() {
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
                             type='text'
-                            required={true}
+                        // required={true}
                         />
                         <input
                             placeholder='Image Url'
@@ -117,7 +126,7 @@ function CreateSong() {
                                 return <option value={album.id}>{album.title}</option>
                             })}
                         </select>
-                        <button disabled={errors.length > 0 ? true : false} style={{ backgroundColor: '#ff5500' }} className='button' type='submit'>Upload</button>
+                        <button style={{ backgroundColor: '#ff5500' }} className='button' type='submit'>Upload</button>
                     </form>
                 </section>
             </div>

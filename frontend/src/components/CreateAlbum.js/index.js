@@ -15,6 +15,13 @@ function CreateAlbum() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const newErrors = []
+        setErrors(newErrors)
+        if (newErrors.length === 0) {
+            if (title.length === 0) newErrors.push('Must add title');
+            if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
+        }
+        if (newErrors.length > 0) return setErrors(newErrors)
         const body = {
             title,
             description,
@@ -33,12 +40,12 @@ function CreateAlbum() {
         await history.push(`/`);
     }
 
-    useEffect(() => {
-        const newErrors = []
-        if (title.length === 0) newErrors.push('Must add title');
-        if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
-        setErrors(newErrors)
-    }, [imageUrl, title])
+    // useEffect(() => {
+    //     const newErrors = []
+    //     if (title.length === 0) newErrors.push('Must add title');
+    //     if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
+    //     setErrors(newErrors)
+    // }, [imageUrl, title])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center' }}>
@@ -59,7 +66,7 @@ function CreateAlbum() {
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
                             type='text'
-                            required={true}
+                        // required={true}
                         />
                         <input
                             placeholder='Description:'
@@ -78,7 +85,7 @@ function CreateAlbum() {
                             type='text'
                         // required={true}
                         />
-                        <button disabled={errors.length > 0 ? true : false} style={{ backgroundColor: '#ff5500' }} className='button' type='submit'>Upload Album</button>
+                        <button style={{ backgroundColor: '#ff5500' }} className='button' type='submit'>Upload Album</button>
                     </form>
                 </section>
             </div>

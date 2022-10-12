@@ -14,6 +14,16 @@ function EditSong({ song, songId, setEdit }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const newErrors = []
+        setErrors(newErrors)
+        if (newErrors.length === 0) {
+            if (title.length === 0) newErrors.push('Must add title');
+            if (!url) newErrors.push('Must have an Audio URL')
+            if (url && !url.endsWith('.wav')) newErrors.push('Song must end with .wav');
+            if (previewImage && !previewImage.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
+        }
+        if (newErrors.length > 0) return setErrors(newErrors)
         const song = {
 
             title,
@@ -26,13 +36,13 @@ function EditSong({ song, songId, setEdit }) {
         await setEdit(false);
     }
 
-    useEffect(() => {
-        const newErrors = []
-        if (title.length === 0) newErrors.push('Must add title');
-        if (url && !url.endsWith('.wav')) newErrors.push('Song must end with .wav');
-        if (previewImage && !previewImage.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
-        setErrors(newErrors)
-    }, [url, previewImage, title])
+    // useEffect(() => {
+    //     const newErrors = []
+    //     if (title.length === 0) newErrors.push('Must add title');
+    //     if (url && !url.endsWith('.wav')) newErrors.push('Song must end with .wav');
+    //     if (previewImage && !previewImage.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
+    //     setErrors(newErrors)
+    // }, [url, previewImage, title])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '20px' }}>
@@ -52,7 +62,7 @@ function EditSong({ song, songId, setEdit }) {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         type='text'
-                        required={true}
+                    // required={true}
                     />
                     <label className='labelEdit'>Description:
                     </label>
@@ -71,7 +81,7 @@ function EditSong({ song, songId, setEdit }) {
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         type='text'
-                        required={true}
+                    // required={true}
                     />
                     <label className='labelEdit'>ImageUrl:
                     </label>
@@ -82,7 +92,7 @@ function EditSong({ song, songId, setEdit }) {
                         onChange={(e) => setPreviewImage(e.target.value === '' ? '' : e.target.value)}
                         type='text'
                     />
-                    <button disabled={errors.length > 0 ? true : false} className='editSongButton' type='submit'>Upload</button>
+                    <button className='editSongButton' type='submit'>Upload</button>
 
                 </form>
             </div>

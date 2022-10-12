@@ -14,6 +14,13 @@ function EditAlbum({ album, albumId, setEdit }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const newErrors = []
+        setErrors(newErrors)
+        if (newErrors.length === 0) {
+            if (title.length === 0) newErrors.push('Must add title');
+            if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
+        }
+        if (newErrors.length > 0) return setErrors(newErrors)
         const album = {
 
             title,
@@ -25,12 +32,12 @@ function EditAlbum({ album, albumId, setEdit }) {
         await setEdit(false);
     }
 
-    useEffect(() => {
-        const newErrors = []
-        if (title.length === 0) newErrors.push('Must add title');
-        if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
-        setErrors(newErrors)
-    }, [imageUrl, title])
+    // useEffect(() => {
+    //     const newErrors = []
+    //     if (title.length === 0) newErrors.push('Must add title');
+    //     if (imageUrl && !imageUrl.endsWith('.jpg')) newErrors.push('If adding image it must be .jpg')
+    //     setErrors(newErrors)
+    // }, [imageUrl, title])
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', backgroundColor: '#ECECEC', height: '100vh', width: '100%', flexDirection: 'column', alignItems: 'center', position: 'relative', bottom: '20px' }}>
@@ -50,7 +57,6 @@ function EditAlbum({ album, albumId, setEdit }) {
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         type='text'
-                        required={true}
                     />
                     <label className='labelEdit'>Description:
                     </label>
@@ -70,7 +76,7 @@ function EditAlbum({ album, albumId, setEdit }) {
                         onChange={(e) => setImageUrl(e.target.value === '' ? '' : e.target.value)}
                         type='text'
                     />
-                    <button disabled={errors.length > 0 ? true : false} className='editSongButton' type='submit'>Upload</button>
+                    <button className='editSongButton' type='submit'>Upload</button>
 
                 </form>
             </div>
