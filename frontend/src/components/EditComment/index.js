@@ -18,6 +18,7 @@ const EditComment = ({ body, id, setEditComment, songId, setComments }) => {
     useEffect(() => {
         const newErrors = []
         if (comment.length === 0) newErrors.push('Comment cannot be empty');
+        if (comment.length > 130) newErrors.push("Comment can't be more than 130 characters")
         setErrors(newErrors)
     }, [comment])
 
