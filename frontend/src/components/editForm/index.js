@@ -6,10 +6,10 @@ import './edit.css'
 
 function EditSong({ song, songId, setEdit }) {
     const dispatch = useDispatch();
-    const [title, setTitle] = useState(song[songId].songs.title);
-    const [description, setDescription] = useState(song[songId].songs.description);
-    const [url, setUrl] = useState(song[songId].songs.url)
-    const [previewImage, setPreviewImage] = useState(song[songId].songs.previewImage);
+    const [title, setTitle] = useState(song.songs.title);
+    const [description, setDescription] = useState(song.songs.description);
+    const [url, setUrl] = useState(song.songs.url)
+    const [previewImage, setPreviewImage] = useState(song.songs.previewImage);
     const [color, setColor] = useState('white')
     const [errors, setErrors] = useState([]);
 
