@@ -21,12 +21,16 @@ function SongProfile() {
     const [editComment, setEditComment] = useState(false);
     const songs = useSelector(state => state.songDetail.currentSong);
     const user = useSelector(state => state.session.user);
+    const artistOtherSongs = Object.values(useSelector(state => state.songDetail.songs)).filter(x => x.id !== Number(songId));
     let comment = Object.values(useSelector(state => state.comments.comments));
-
     const deleteSong = async () => {
         await dispatch(songActions.deleteSong(songId));
         history.push('/');
     }
+
+    // if (user) {
+    //     artistOtherSongs.filter(x => x.userId === songs[songId].Artist.id);
+    // }
 
 
 
@@ -56,7 +60,7 @@ function SongProfile() {
 
     let deleteButton;
     let editButton;
-    if (user && isLoaded && songs[songId].artist.id === user.id) {
+    if (isLoaded && user && songs.artist.id === user.id) {
         deleteButton = <button className='deleteSongButton' onClick={() => deleteSong()}>Delete</button>;
 
         editButton = <button className='editButton' onClick={() => setEditSong(true)}>Edit</button>;
@@ -64,8 +68,10 @@ function SongProfile() {
 
     let content;
     if (editSong) {
-        content =
-            <h2><EditSong setEdit={() => setEditSong()} song={songs} songId={songId} /></h2>
+        if (isLoaded) {
+            content =
+                <h2><EditSong setEdit={() => setEditSong()} song={songs} songId={songId} /></h2>
+        }
 
     } else {
         if (isLoaded) {
@@ -78,23 +84,23 @@ function SongProfile() {
                                 <div className='songDetailsInnerDiv'>
                                     <div className='audioAndTitleDiv'>
                                         <div style={{ width: 'auto' }}>
-                                            <h2 className='title'>{songs[songId].songs.title}</h2>
+                                            <h2 className='title'>{songs.songs.title}</h2>
                                             {/* <h3>{songs[songId].songs.description}</h3> */}
-                                            <NavLink to={`/artists/${songs[songId].artist.id}`}>
-                                                <h3 className='artist'>{songs[songId].artist.username}</h3>
+                                            <NavLink to={`/artists/${songs.artist.id}`}>
+                                                <h3 className='artist'>{songs.artist.username}</h3>
                                             </NavLink>
                                         </div>
                                         <div>
                                             <audio className='audioPlayer' controls>
-                                                <source src={songs[songId].songs.url} type="audio/ogg" />
+                                                <source src={songs.songs.url} type="audio/ogg" />
                                             </audio>
                                         </div>
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                                         <div>
                                             {
-                                                songs[songId].songs.previewImage.endsWith('.jpg') ?
-                                                    <img className='img' src={songs[songId].songs.previewImage} alt={songs[songId].songs.description} /> :
+                                                songs.songs.previewImage.endsWith('.jpg') ?
+                                                    <img className='img' src={songs.songs.previewImage} alt={songs.songs.description} /> :
                                                     <img className='img' src='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' alt={songs[songId].songs.description} />
                                             }
                                         </div>
@@ -112,43 +118,63 @@ function SongProfile() {
 
                             </div>
                         </div>
-                        <div className='commentsDiv'>
-                            <form onSubmit={handleSubmit}>
-                                <ul>
-                                    {errors && errors.map(error =>
-                                        <li key={error}>{error}</li>
-                                    )}
-                                </ul>
-                                <label>
-                                    <input
-                                        className='commentInput'
-                                        placeholder='Write a comment'
-                                        value={body}
-                                        onChange={e => setBody(e.target.value)}
-                                        required={true}
+                        <div className='commentAndOtherSongsContainer'>
+                            <div className='commentsDiv'>
+                                <form onSubmit={handleSubmit}>
+                                    <ul>
+                                        {errors && errors.map(error =>
+                                            <li key={error}>{error}</li>
+                                        )}
+                                    </ul>
+                                    <label>
+                                        <input
+                                            className='commentInput'
+                                            placeholder='Write a comment'
+                                            value={body}
+                                            onChange={e => setBody(e.target.value)}
+                                            required={true}
 
-                                    />
-                                </label>
-                                <button disabled={errors.length ? true : false} style={{ display: 'none' }} type='submit'>Submit</button>
-                            </form>
-                            <h3 style={{ display: 'flex', paddingLeft: '110px' }}>{comment.length ? comment.length : 0} comments</h3>
-                            <ul className='commentBorder'>
-                                {commentsLoaded && comment && comment.map(({ id, body, userId }) => (
-                                    <div style={{ display: 'flex', width: '87%' }}>
-                                        {editComment === false ? <li className='liEle' style={{ display: 'inline-flex' }} key={id}>
-                                            {body}
-                                            {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => setEditComment(id)}>Edit</button> : ''}
-                                            {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => deleteCommentButton(id, songId)} >Delete</button> : ''}
-                                        </li> :
-                                            <li className='liEle' style={{ display: 'inline-flex' }} key={id}>
-                                                {editComment === id && <EditComment id={id} body={body} setEditComment={setEditComment} songId={songId} setComments={setCommentsLoaded} />}
-                                                {editComment !== id && body}
-                                            </li>
-                                        }
-                                        {/* <li className='liEle' style={{ display: 'inline-flex' }} key={id}>{user && comment && userId === user.id ? <EditCommentModal /> : ''}</li> */}
-                                    </div>
-                                ))}
-                            </ul>
+                                        />
+                                    </label>
+                                    <button disabled={errors.length ? true : false} style={{ display: 'none' }} type='submit'>Submit</button>
+                                </form>
+                                <h3 style={{ display: 'flex', paddingLeft: '110px' }}>{comment.length ? comment.length : 0} comments</h3>
+                                <ul className='commentBorder'>
+                                    {commentsLoaded && comment && comment.map(({ id, body, userId }) => (
+                                        <div style={{ display: 'flex', width: '87%' }}>
+                                            {editComment === false ? <li className='liEle' style={{ display: 'inline-flex' }} key={id}>
+                                                {body}
+                                                {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => setEditComment(id)}>Edit</button> : ''}
+                                                {user && comment && userId === user.id ? <button className='hiddenButton' onClick={() => deleteCommentButton(id, songId)} >Delete</button> : ''}
+                                            </li> :
+                                                <li className='liEle' style={{ display: 'inline-flex' }} key={id}>
+                                                    {editComment === id && <EditComment id={id} body={body} setEditComment={setEditComment} songId={songId} setComments={setCommentsLoaded} />}
+                                                    {editComment !== id && body}
+                                                </li>
+                                            }
+                                            {/* <li className='liEle' style={{ display: 'inline-flex' }} key={id}>{user && comment && userId === user.id ? <EditCommentModal /> : ''}</li> */}
+                                        </div>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className='extraSongContainerDiv'>
+                                <h3>Other Songs</h3>
+                                <ul style={{ padding: '0 0 0' }}>
+                                    {isLoaded && artistOtherSongs.length > 0 && artistOtherSongs.map(song => {
+
+                                        return <div className='otherSongNav'>
+                                            <div>
+                                                <img className='otherSongImg' src={song.previewImage} alt='songImg' />
+                                            </div>
+                                            <div className='otherSongDetailDiv'>
+                                                <p style={{ margin: '0', fontSize: '14px' }}>{user.username}</p>
+                                                <p style={{ margin: '0', fontSize: '14px' }}>{song.title}</p>
+                                            </div>
+                                        </div>
+                                    })}
+
+                                </ul>
+                            </div>
                         </div>
                         {/* <div style={{display: 'flex', justifyContent: 'center',backgroundColor: 'white', width: '80%', position: 'relative', left: '130px'}}>
                 <div  style={{textIndent: '70px',position: 'relative', bottom:'1px',display:'flex', justifyContent: 'center',backgroundColor: 'white', width: '100%', borderTop: '1px solid #f2f2f2'}}>
@@ -162,10 +188,10 @@ function SongProfile() {
 
     useEffect(() => {
 
-        dispatch(songActions.getSongByIdNum(songId)).then(() => dispatch(commentActions.getCommentsById(songId))).then(() =>
+        dispatch(songActions.getSongs()).then(dispatch(songActions.getSongByIdNum(songId))).then(() => dispatch(commentActions.getCommentsById(songId))).then(() =>
             setIsLoaded(true))
 
-    }, [dispatch, songId, editSong])
+    }, [dispatch, songId, editSong, isLoaded])
 
     useEffect(() => {
         const newErrors = []

@@ -3,6 +3,8 @@
     padding: 0;
     /* margin: 80% 0; */
     justify-content: center;
+    position: sticky;
+    top: 0;
 }
 
 

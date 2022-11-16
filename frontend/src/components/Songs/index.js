@@ -15,6 +15,33 @@ function Songs() {
     const songs = Object.values(useSelector(state => state.songDetail.songs));
     const albums = Object.values(useSelector(state => state.albums.allAlbums));
 
+    // const buttonLeft = document.getElementById('slideLeft');
+
+    // buttonRight.onclick = function () {
+    //     document.getElementById('container').scrollLeft += 20;
+    // };
+    // buttonLeft.onclick = function () {
+    //     document.getElementById('container').scrollLeft -= 20;
+    // };
+
+    document.addEventListener('click', function handleClickOutsideBox(event) {
+        const buttonScrollRight = document.getElementsByClassName('buttonRight');
+        const buttonScrollLeft = document.getElementsByClassName('buttonLeft');
+        // console.log(buttonScroll[0].contains(event.target))
+        if (buttonScrollRight[0].contains(event.target)) {
+            const scroller = document.getElementsByClassName('grid2')
+            scroller[0].scrollLeft += 200;
+
+        }
+        console.log(buttonScrollLeft[0].contains(event.target))
+        if (buttonScrollLeft[0].contains(event.target)) {
+            const scroller = document.getElementsByClassName('grid2')
+            scroller[0].scrollLeft -= 200;
+
+        }
+
+    });
+
     useEffect(() => {
         dispatch(songActions.getSongs()).then(dispatch(songActions.getSongsByUser())).then(() =>
             setIsLoaded(true))
@@ -54,8 +81,8 @@ function Songs() {
 
             </ul>
             <h2 className='header' style={{ backgroundColor: 'white', width: '80%', margin: 0, paddingTop: '0px', height: '10vh' }}>Albums:</h2>
-            <ul className='grid' >
-                <div className="innerGrid">
+            <ul className='grid2' >
+                <div className="innerGrid2">
                     {isLoaded && albums && songs &&
                         albums.map(album =>
                             <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start', marginLeft: '20px' }}>
@@ -76,13 +103,18 @@ function Songs() {
                                     </div>
                                     <br />
                                 </li>
+
                             </div>
                         )
                     }
+                    {/* <button className="buttonRight" >
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20"><path d="m8 15-1.062-1.062L10.875 10 6.938 6.062 8 5l5 5Z" /></svg>
+                    </button> */}
+                    {/* <button className="buttonLeft"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="20"><path d="m12 15-5-5 5-5 1.062 1.062L9.125 10l3.937 3.938Z" /></svg></button> */}
                 </div>
 
             </ul>
-            <div style={{ position: 'absolute', top: '3em', right: '0' }}>
+            <div style={{ position: 'fixed', top: '3em', right: '0' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     {/* <img style={{ height: '20px', width: '20px', borderRadius: '50%' }} src={profile} /> */}
                     <a href='https://github.com/Brian8771'><img style={{ height: '60px', width: '60px' }} src={github} /></a>

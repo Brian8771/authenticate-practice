@@ -10,7 +10,10 @@ function EditSong({ song, songId, setEdit }) {
     const [description, setDescription] = useState(song[songId].songs.description);
     const [url, setUrl] = useState(song[songId].songs.url)
     const [previewImage, setPreviewImage] = useState(song[songId].songs.previewImage);
+    const [color, setColor] = useState('white')
     const [errors, setErrors] = useState([]);
+
+    console.log(String(color))
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -4,7 +4,8 @@
     align-items: center;
 }
 
-.grid {
+.grid,
+.grid2 {
     display: flex;
     width: 80%;
     background-color: white;
@@ -14,9 +15,12 @@
     padding: 0;
     height: 100%;
     overflow-x: auto;
+    scroll-behavior: smooth;
 }
 
-.innerGrid {
+.innerGrid,
+.innerGrid2 {
+    position: relative;
     display: flex;
     max-height: 100%;
     max-width: 40rem;
@@ -28,4 +32,44 @@
     text-indent: 18px;
     font-size: 32px;
     font-weight: 400;
+}
+
+.buttonRight {
+    position: absolute;
+    right: 100px;
+    padding: 0 0 0 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: #e5e5e5 1px solid;
+    border-radius: 4px;
+
+}
+
+
+.buttonRight:hover,
+.buttonLeft:hover {
+    border-color: #FF5500;
+}
+
+
+.buttonRight:hover>svg,
+.buttonLeft:hover>svg {
+    fill: #FF5500;
+
+}
+
+.buttonLeft {
+    position: absolute;
+    padding: 0 2px 0 0;
+    top: 70px;
+    left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: #e5e5e5 1px solid;
+    border-radius: 4px;
+    z-index: 0;
 }
