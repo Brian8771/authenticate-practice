@@ -10,7 +10,7 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Users'},
+        references: { model: 'Users' },
         onDelete: 'CASCADE'
       },
       albumId: {
@@ -33,6 +33,10 @@ module.exports = {
       previewImage: {
         type: Sequelize.STRING,
         defaultValue: 'No image'
+      },
+      color: {
+        type: Sequelize.STRING,
+        defaultValue: '#ff5501'
       },
       createdAt: {
         allowNull: false,

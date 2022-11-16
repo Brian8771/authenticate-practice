@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    color: DataTypes.STRING,
     description: DataTypes.STRING,
     url: {
       type: DataTypes.STRING,
